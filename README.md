@@ -1,40 +1,37 @@
-# Simulador ICFES Saber 11° — Subida a Netlify
+# Simulador ICFES Saber 11°
 
-## 📦 Contenido del ZIP
+🌐 **En vivo:** https://dancruzul.github.io/icfes-eden/
+📦 **Repo:** https://github.com/DanCruZul/icfes-eden
+
+Simulador con el examen **completo oficial (254 preguntas calificables)** + exámenes por materia + roadmap de 24 semanas.
+
+## 🚀 Deploy
+
+Despliegue automático con **GitHub Pages** desde `main` (raíz). Cada push a `main` se publica solo en 1–2 min. Sin build, sin ZIP.
+
+## 📦 Contenido
 
 ```
-simulador-icfes-netlify.zip
-├── index.html          ← Página principal
-├── netlify.toml        ← Configuración de Netlify
-├── css/style.css       ← Estilos (dark mode profesional)
-├── js/app.js           ← Lógica del simulador + Firebase
-└── data/banco.json     ← 616 preguntas reales de cuadernillos oficiales ICFES
+├── index.html          ← Simulador (examen 254 + por materia + ranking + calculadora)
+├── roadmap.html        ← Roadmap 24 semanas con técnica de 400+ y recursos
+├── netlify.toml        ← Config (por si se migra a Netlify)
+├── css/style.css       ← UI bone-on-black (PAPER #000 · INK #cdc4ba · R2 · sin sombras)
+├── js/app.js           ← Lógica: rotación, bloques, estímulos, figuras, Firebase
+├── data/banco.json     ← 674 preguntas (cuadernillos oficiales + set propio estilo ICFES)
+├── art/                ← hero, torii, power, beauty, beta, grain, favicon
+└── fonts/              ← Fraunces, Space Grotesk, Space Mono (bundladas, offline-safe)
 ```
 
-## 🚀 Subida a Netlify
+## ⚙️ Firebase (rankings en tiempo real)
 
-1. Ve a **[app.netlify.com](https://app.netlify.com)** e inicia sesión (es gratis)
-2. En el dashboard, arrastra el archivo **ZIP** a la zona "Drag and drop your site output folder"
-3. Netlify generará un enlace aleatorio como `https://random-name-123.netlify.app`
-4. (Opcional) Ve a **Site configuration → Change site name** y ponle `icfes-eden` o similar
+**Sin Firebase:** todo funciona, los rankings no se guardan.
 
-✅ ¡Listo! Ya puedes compartir el enlace con tus amigos.
+**Con Firebase:** puntajes en la nube en tiempo real.
 
----
-
-## ⚙️ Configuración de Firebase (para rankings en tiempo real)
-
-**Sin Firebase:** La página funciona perfectamente, pero los rankings no se guardan.
-
-**Con Firebase:** Los puntajes se guardan en la nube y se ven en tiempo real en todas las PC.
-
-### Pasos:
-
-1. Ve a **[console.firebase.google.com](https://console.firebase.google.com)** y crea un proyecto (gratis)
-2. En el menú lateral, ve a **Firestore Database** → **Crear base de datos** → **Modo de prueba** → **Habilitar**
-3. Ve a **Project settings** (⚙️) → **General** → Baja hasta "Your apps" → **Web** (</>)
-4. Registra la app y copia la configuración que te da (apiKey, projectId, etc.)
-5. Abre el archivo `js/app.js` y reemplaza los valores en `firebaseConfig`:
+1. [console.firebase.google.com](https://console.firebase.google.com) → crear proyecto gratis
+2. **Firestore Database** → Crear base de datos → Modo de prueba → Habilitar
+3. **Project settings** → General → "Your apps" → Web (`</>`)
+4. Copiar la config en `firebaseConfig` al inicio de `js/app.js`:
 
 ```javascript
 const firebaseConfig = {
@@ -47,40 +44,36 @@ const firebaseConfig = {
 };
 ```
 
-6. Vuelve a subir el ZIP a Netlify
-
----
+5. Commit + push a `main`
 
 ## 🎯 Funcionalidades
 
-- ✅ **616 preguntas** reales de cuadernillos oficiales ICFES
-- ✅ **Examen completo:** 50 preguntas cronometradas con proporción oficial (Mat 10 · Lec 8 · Soc 10 · Cie 11 · Ing 11), distintas en cada intento
-- ✅ **Exámenes por materia:** tamaño real oficial (Mat 50 · Lec 41 · Soc 50 · Cie 58 · Ing 55), con rotación sin repetir hasta agotar el banco
-- ✅ **Calculadora de puntaje** con fórmula de ponderación oficial
-- ✅ **Ranking global** en tiempo real (con Firebase)
-- ✅ **Timer** con alertas de tiempo
-- ✅ **Errores guardados** localmente para repaso
-- ✅ **Diseño** dark mode profesional, responsive
-- ✅ **Comparte el enlace** y los puntajes se sincronizan
+- ✅ **674 preguntas** (cuadernillos oficiales + propias estilo ICFES con explicación)
+- ✅ **Examen completo:** 254 calificables (Mat 50 · Lec 41 · Soc 50 · Cie 58 · Ing 55)
+- ✅ **Inglés exacto:** 7 partes 6/6/6/10/9/6/12, formatos A-C (P1–P5) y A-D (P6–P7)
+- ✅ **Estímulos compartidos:** el texto se muestra una vez, preguntas agrupadas (11 grupos)
+- ✅ **Figuras HTML/CSS/SVG:** barras, tablas, plano cartesiano + soporte `media`
+- ✅ **Rotación:** prioriza no vistas; bloques por materia (orden de sesión oficial)
+- ✅ **Exámenes por materia:** tamaño real oficial
+- ✅ **Etiqueta visible** en toda pregunta (tema/competencia o área)
+- ✅ **Calculadora** con fórmula de ponderación oficial
+- ✅ **Ranking** en tiempo real (con Firebase)
+- ✅ **Timer** con alertas · **Roadmap** 24 semanas con técnica y recursos de 400+
 
 ---
 
 ## 📝 Notas importantes
 
 - Las preguntas provienen de cuadernillos oficiales del ICFES (marzo 2026, 2024, 2021, 2019)
-- Los puntajes son estimaciones basadas en la fórmula `Global = (3×Lectura + 3×Matemáticas + 3×Sociales + 3×Ciencias + 1×Inglés) ÷ 13 × 5`
+- Los puntajes son estimaciones: `Global = (3×Lectura + 3×Matemáticas + 3×Sociales + 3×Ciencias + 1×Inglés) ÷ 13 × 5`
 - El modelo IRT real del ICFES puede variar ligeramente los puntajes
 - El ranking usa Firebase Firestore (gratis hasta 50K lecturas/día)
 
 ---
 
-*Creado con ❤️ para el vault Edén — Preparación ICFES Saber 11°*
-
----
-
 ## 🎨 Créditos de diseño
 
-UI basada en [ryoku.dev](https://ryoku.dev) (GPL-3.0, © Ryoku):
-- Arte bone dithered (`art/*.png`: hero, torii, power, beauty, beta) y textura `grain.png`
+UI basada en [ryoku.dev](https://ryoku.dev) (GPL-3.0):
+- Arte bone dithered (`art/*.png`) y textura `grain.png`
 - Tipografías `fonts/`: Fraunces Variable, Space Grotesk Variable, Space Mono
 - Tokens: PAPER #000 · INK #cdc4ba · RADIUS 2 · NO SHADOW
