@@ -78,9 +78,6 @@ let state = {
   startTime: null,
   timerInterval: null,
   elapsed: 0,
-  filterArea: 'todas',
-  filterTema: 'todos',
-  filterDificultad: 'todas',
   errors: [],
   playerName: localStorage.getItem('icfes_name') || '',
   rankingTab: 'global',
@@ -183,6 +180,66 @@ function closeNameModal() {
   if (modal) modal.remove();
 }
 
+// ===== EXAMEN: estructura oficial + rotación =====
+// Proporción real del ICFES (254 calificables) escalada a examen de 50:
+// Mat 50/254→10 · Lec 41/254→8 · Soc 50/254→10 · Cie 58/254→11 · Ing 55/254→11
+const EXAMEN_BLUEPRINT = { matematicas: 10, lectura: 8, sociales: 10, ciencias: 11, ingles: 11 };
+// Examen por materia: tamaño real de cada prueba oficial
+const AREA_EXAM_SIZE = { matematicas: 50, lectura: 41, sociales: 50, ciencias: 58, ingles: 55 };
+
+// Fisher-Yates (sin sesgo)
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+// Rotación: prioriza preguntas no vistas (localStorage 'icfes_seen').
+function getSeenIds() {
+  try { return new Set(JSON.parse(localStorage.getItem('icfes_seen') || '[]')); }
+  catch (e) { return new Set(); }
+}
+
+function markSeen(questions) {
+  try {
+    const seen = getSeenIds();
+    questions.forEach(q => seen.add(q.id));
+    localStorage.setItem('icfes_seen', JSON.stringify([...seen]));
+  } catch (e) { /* almacenamiento lleno o bloqueado: rotación sigue aleatoria */ }
+}
+
+// Toma n preguntas de un pool priorizando las no vistas.
+// Si las no vistas no alcanzan, completa con vistas (y resetea ese pool).
+function sampleRotating(pool, n) {
+  const seen = getSeenIds();
+  const unseen = pool.filter(q => !seen.has(q.id));
+  const picked = shuffle(unseen).slice(0, n);
+  if (picked.length < n) {
+    const need = n - picked.length;
+    const rest = shuffle(pool.filter(q => !picked.includes(q)));
+    picked.push(...rest.slice(0, need));
+  }
+  return shuffle(picked);
+}
+
+function buildExamenCompleto() {
+  let out = [];
+  Object.keys(EXAMEN_BLUEPRINT).forEach(area => {
+    const pool = BANCO.filter(q => q.area === area);
+    out = out.concat(sampleRotating(pool, Math.min(EXAMEN_BLUEPRINT[area], pool.length)));
+  });
+  return shuffle(out);
+}
+
+function buildExamenArea(area) {
+  const pool = BANCO.filter(q => q.area === area);
+  const n = Math.min(AREA_EXAM_SIZE[area] || pool.length, pool.length);
+  return sampleRotating(pool, n);
+}
+
 // ===== MODES =====
 function startMode(mode) {
   state.mode = mode;
@@ -190,25 +247,30 @@ function startMode(mode) {
   state.answers = {};
   state.correct = {};
   state.elapsed = 0;
-  
+
   if (mode === 'examen') {
-    state.questions = getRandomQuestions(50);
+    state.questions = buildExamenCompleto();
+    markSeen(state.questions);
     startTimer();
-  } else if (mode === 'practica') {
-    state.questions = [...BANCO];
-    stopTimer();
-  } else if (mode === 'repaso') {
-    state.questions = state.errors.length > 0 ? [...state.errors] : [...BANCO];
-    stopTimer();
+  } else {
+    return;
   }
-  
+
   showQuestionSection();
   renderQuestion();
 }
 
-function getRandomQuestions(n) {
-  const shuffled = [...BANCO].sort(() => Math.random() - 0.5);
-  return shuffled.slice(0, Math.min(n, shuffled.length));
+function startAreaExam(area) {
+  state.mode = 'area';
+  state.currentIndex = 0;
+  state.answers = {};
+  state.correct = {};
+  state.elapsed = 0;
+  state.questions = buildExamenArea(area);
+  markSeen(state.questions);
+  startTimer();
+  showQuestionSection();
+  renderQuestion();
 }
 
 function startTimer() {
@@ -243,8 +305,8 @@ function showQuestionSection() {
   document.getElementById('resultsSection').classList.remove('active');
   
   const filters = document.getElementById('filters');
-  filters.style.display = state.mode === 'practica' ? 'flex' : 'none';
-  document.getElementById('statsBar').style.display = state.mode === 'examen' ? 'flex' : 'none';
+  if (filters) filters.style.display = 'none';
+  document.getElementById('statsBar').style.display = (state.mode === 'examen' || state.mode === 'area') ? 'flex' : 'none';
   document.getElementById('progressContainer').style.display = 'block';
   
   state.dotsCollapsed = state.questions.length > 50;
@@ -322,9 +384,9 @@ function renderQuestion() {
       </div>`;
   });
   
-  // Feedback socrático (visible después de responder en práctica)
+  // Feedback socrático (visible después de responder en exámenes)
   let feedbackHtml = '';
-  if (isAnswered && state.mode === 'practica') {
+  if (isAnswered && (state.mode === 'examen' || state.mode === 'area')) {
     feedbackHtml = `<div class="socratic-feedback fade-in">${buildSocraticFeedback(q, selectedIdx)}</div>`;
   }
   
@@ -377,8 +439,8 @@ function selectOption(idx) {
     }
   });
   
-  // Mostrar feedback socrático (en práctica)
-  if (state.mode === 'practica') {
+  // Mostrar feedback socrático (en exámenes)
+  if (state.mode === 'examen' || state.mode === 'area') {
     const container = document.getElementById('questionContainer');
     const feedbackDiv = document.createElement('div');
     feedbackDiv.className = 'socratic-feedback fade-in';
@@ -470,7 +532,7 @@ function renderNavButtons() {
     <button class="btn btn-secondary" onclick="goHome()">← Inicio</button>
     <button class="btn btn-secondary" onclick="prevQuestion()" ${!hasPrev ? 'disabled' : ''}>← Anterior</button>
     <button class="btn btn-primary" onclick="nextQuestion()" ${!hasNext ? 'disabled' : ''}>Siguiente →</button>
-    ${isLast && state.mode === 'examen' ? '<button class="btn btn-success" onclick="finishExam()">Finalizar examen ✓</button>' : ''}
+    ${isLast && (state.mode === 'examen' || state.mode === 'area') ? '<button class="btn btn-success" onclick="finishExam()">Finalizar examen ✓</button>' : ''}
   `;
 }
 
@@ -558,26 +620,13 @@ function goHome() {
 }
 
 function restartMode() {
+  if (state.mode === 'area') {
+    // Re-construye desde el banco para rotar preguntas
+    const area = state.questions[0]?.area;
+    if (area) startAreaExam(area);
+    return;
+  }
   startMode(state.mode);
-}
-
-// ===== FILTERS =====
-function applyFilters() {
-  state.filterArea = document.getElementById('filterArea').value;
-  state.filterTema = document.getElementById('filterTema').value;
-  state.filterDificultad = document.getElementById('filterDificultad').value;
-  
-  let filtered = [...BANCO];
-  
-  if (state.filterArea !== 'todas') filtered = filtered.filter(q => q.area === state.filterArea);
-  if (state.filterTema !== 'todos') filtered = filtered.filter(q => q.tema === state.filterTema);
-  if (state.filterDificultad !== 'todas') filtered = filtered.filter(q => q.dificultad === state.filterDificultad);
-  
-  state.questions = filtered;
-  state.currentIndex = 0;
-  state.answers = {};
-  state.correct = {};
-  renderQuestion();
 }
 
 function calcularPuntaje() {
@@ -604,44 +653,14 @@ async function init() {
   await loadFirebase();
   showNameModal();
   
-  const areaSelect = document.getElementById('filterArea');
-  Object.keys(AREAS).forEach(key => {
-    const opt = document.createElement('option');
-    opt.value = key;
-    opt.textContent = AREAS[key].nombre;
-    areaSelect.appendChild(opt);
-  });
-  
   const areasGrid = document.getElementById('areasGrid');
   Object.keys(AREAS).forEach(key => {
     const area = AREAS[key];
     const card = document.createElement('div');
     card.className = 'area-card';
-    card.onclick = () => {
-      state.mode = 'practica';
-      state.currentIndex = 0;
-      state.answers = {};
-      state.correct = {};
-      state.questions = BANCO.filter(q => q.area === key);
-      stopTimer();
-      showQuestionSection();
-      renderQuestion();
-    };
-    card.innerHTML = `<div class="area-icon" style="background:${area.color}20;color:${area.color}">${area.icon}</div><div class="area-info"><h4>${area.nombre}</h4><div class="meta">Peso ${area.peso} · ${BANCO.filter(q => q.area === key).length} preguntas</div></div>`;
+    card.onclick = () => startAreaExam(key);
+    card.innerHTML = `<div class="area-icon" style="background:${area.color}20;color:${area.color}">${area.icon}</div><div class="area-info"><h4>${area.nombre}</h4><div class="meta">Peso ${area.peso} · ${AREA_EXAM_SIZE[key]} preguntas · ${BANCO.filter(q => q.area === key).length} en banco</div></div>`;
     areasGrid.appendChild(card);
-  });
-  
-  document.getElementById('filterArea').addEventListener('change', function() {
-    const temaSelect = document.getElementById('filterTema');
-    temaSelect.innerHTML = '<option value="todos">Todos</option>';
-    const area = this.value;
-    const allTemas = area === 'todas' ? [...new Set(BANCO.map(q => q.tema).filter(Boolean))].sort() : [...new Set(BANCO.filter(q => q.area === area).map(q => q.tema).filter(Boolean))].sort();
-    allTemas.forEach(t => {
-      const opt = document.createElement('option');
-      opt.value = t;
-      opt.textContent = t;
-      temaSelect.appendChild(opt);
-    });
   });
 }
 

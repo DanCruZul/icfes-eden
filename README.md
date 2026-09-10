@@ -54,10 +54,10 @@ const firebaseConfig = {
 ## 🎯 Funcionalidades
 
 - ✅ **629 preguntas** reales de cuadernillos oficiales ICFES
-- ✅ **4 modos:** Examen cronometrado, Práctica por área, Estudio, Repaso de errores
-- ✅ **Calculadora de puntaje** con fórmula IRT real
+- ✅ **Examen completo:** 50 preguntas cronometradas con proporción oficial (Mat 10 · Lec 8 · Soc 10 · Cie 11 · Ing 11), distintas en cada intento
+- ✅ **Exámenes por materia:** tamaño real oficial (Mat 50 · Lec 41 · Soc 50 · Cie 58 · Ing 55), con rotación sin repetir hasta agotar el banco
+- ✅ **Calculadora de puntaje** con fórmula de ponderación oficial
 - ✅ **Ranking global** en tiempo real (con Firebase)
-- ✅ **Filtros** por área, tema y dificultad
 - ✅ **Timer** con alertas de tiempo
 - ✅ **Errores guardados** localmente para repaso
 - ✅ **Diseño** dark mode profesional, responsive

@@ -30,32 +30,21 @@
 
   <!-- Landing -->
   <div class="landing" id="landing">
-    <h2>🎯 Entrenamiento ICFES</h2>
-    <p>Plataforma completa con preguntas reales de cuadernillos oficiales del ICFES. Elige tu modo de entrenamiento y comienza a prepararte.</p>
-    
+    <h2>🎯 Simulador ICFES</h2>
+    <p>629 preguntas reales de cuadernillos oficiales del ICFES. Cada examen es distinto: las preguntas rotan respetando la estructura oficial.</p>
+
     <div class="modes-grid">
       <div class="mode-card" onclick="startMode('examen')">
         <div class="icon">⏱️</div>
-        <h3>Modo Examen</h3>
-        <div class="desc">50 preguntas cronometradas que simulan el ICFES real. Al final ves tu puntaje global.</div>
+        <h3>Examen Completo</h3>
+        <div class="desc">50 preguntas cronometradas con la proporción real del ICFES (Mat 10 · Lec 8 · Soc 10 · Cie 11 · Ing 11). Nunca es el mismo examen.</div>
         <span class="badge badge-examen">Cronometrado</span>
-      </div>
-      <div class="mode-card" onclick="startMode('practica')">
-        <div class="icon">📚</div>
-        <h3>Modo Práctica</h3>
-        <div class="desc">Practica por área, tema o competencia. Después de cada pregunta ves si fue correcta + explicación detallada.</div>
-        <span class="badge badge-practica">Inmediato</span>
-      </div>
-      <div class="mode-card" onclick="startMode('repaso')">
-        <div class="icon">🔄</div>
-        <h3>Modo Repaso</h3>
-        <div class="desc">Solo las preguntas que fallaste antes. Los errores se guardan para que los repitas.</div>
-        <span class="badge badge-repaso">Errores</span>
       </div>
     </div>
 
     <div class="areas-section">
-      <h3>Práctica por área</h3>
+      <h3>Exámenes por materia</h3>
+      <p style="font-size:12px;color:var(--text-muted);margin-bottom:12px;">Cada materia usa su tamaño real (Mat 50 · Lec 41 · Soc 50 · Cie 58 · Ing 55) con preguntas distintas en cada intento.</p>
       <div class="areas-grid" id="areasGrid"></div>
     </div>
 
@@ -112,30 +101,6 @@
 
   <!-- Question Section -->
   <div class="question-section" id="questionSection">
-    <div class="filters" id="filters">
-      <div class="filter-group">
-        <label>Área:</label>
-        <select class="filter-select" id="filterArea" onchange="applyFilters()">
-          <option value="todas">Todas</option>
-        </select>
-      </div>
-      <div class="filter-group">
-        <label>Tema:</label>
-        <select class="filter-select" id="filterTema" onchange="applyFilters()">
-          <option value="todos">Todos</option>
-        </select>
-      </div>
-      <div class="filter-group">
-        <label>Dificultad:</label>
-        <select class="filter-select" id="filterDificultad" onchange="applyFilters()">
-          <option value="todas">Todas</option>
-          <option value="baja">Baja</option>
-          <option value="media">Media</option>
-          <option value="alta">Alta</option>
-        </select>
-      </div>
-    </div>
-
     <div class="progress-container" id="progressContainer">
       <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
       <div class="progress-text">
