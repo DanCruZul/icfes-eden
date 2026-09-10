@@ -487,6 +487,11 @@ function renderQuestion() {
     feedbackHtml = `<div class="socratic-feedback fade-in">${buildSocraticFeedback(q, selectedIdx)}</div>`;
   }
   
+  // Figura con HTML/CSS/SVG (barras, tabla, plano) o imagen
+  let figuraHtml = '';
+  if (q.figura) figuraHtml = renderFigura(q.figura);
+  else if (q.media) figuraHtml = `<img class="fig-img" src="${q.media}" alt="${(q.media_alt || 'Figura de la pregunta').replace(/"/g, '&quot;')}">`;
+
   container.innerHTML = `
     <div class="question-card fade-in">
       <div class="question-header">
@@ -496,6 +501,7 @@ function renderQuestion() {
         </div>
       </div>
       ${passageHtml}
+      ${figuraHtml}
       <div class="question-text">${stem}</div>
       <div class="options">${optionsHtml}</div>
       ${feedbackHtml}
@@ -504,6 +510,64 @@ function renderQuestion() {
   updateProgress();
   renderDots();
   renderNavButtons();
+}
+
+// ===== FIGURAS (HTML/CSS/SVG) =====
+// q.figura: {tipo:'barras'|'tabla'|'plano', titulo, ...}
+//   barras: {titulo, unidad, datos:[{etiqueta, valor}]}
+//   tabla: {titulo, columnas:[], filas:[[]]}
+//   plano: {titulo, puntos:[{x, y, nombre}]}
+function esc(s) {
+  return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+function renderFigura(f) {
+  if (!f || !f.tipo) return '';
+  let html = `<div class="figura"><div class="figura-titulo">${esc(f.titulo || 'Figura')}</div>`;
+  if (f.tipo === 'tabla') {
+    html += '<table class="fig-table"><thead><tr>';
+    (f.columnas || []).forEach(c => { html += `<th>${esc(c)}</th>`; });
+    html += '</tr></thead><tbody>';
+    (f.filas || []).forEach(fila => {
+      html += '<tr>';
+      fila.forEach(celda => { html += `<td>${esc(celda)}</td>`; });
+      html += '</tr>';
+    });
+    html += '</tbody></table>';
+  } else if (f.tipo === 'barras') {
+    const datos = f.datos || [];
+    const max = Math.max.apply(null, [0].concat(datos.map(d => Number(d.valor) || 0))) || 1;
+    datos.forEach(d => {
+      const pct = Math.round((Number(d.valor) || 0) / max * 100);
+      html += `<div class="fig-bar-row"><span class="fig-bar-label">${esc(d.etiqueta)}</span>` +
+        `<span class="fig-bar-track"><span class="fig-bar-fill" style="width:${pct}%"></span></span>` +
+        `<span class="fig-bar-value">${esc(d.valor)}${f.unidad ? ' ' + esc(f.unidad) : ''}</span></div>`;
+    });
+  } else if (f.tipo === 'plano') {
+    const pts = f.puntos || [];
+    const W = 240, H = 240, P = 24;
+    let xs = pts.map(p => p.x), ys = pts.map(p => p.y);
+    let minX = Math.min.apply(null, [0].concat(xs)) - 1, maxX = Math.max.apply(null, [0].concat(xs)) + 1;
+    let minY = Math.min.apply(null, [0].concat(ys)) - 1, maxY = Math.max.apply(null, [0].concat(ys)) + 1;
+    const X = v => P + (v - minX) / (maxX - minX) * (W - 2 * P);
+    const Y = v => H - P - (v - minY) / (maxY - minY) * (H - 2 * P);
+    html += `<svg class="fig-plane" viewBox="0 0 ${W} ${H}" role="img">`;
+    for (let gx = Math.ceil(minX); gx <= maxX; gx++) {
+      html += `<line x1="${X(gx)}" y1="${P}" x2="${X(gx)}" y2="${H - P}" class="grid"/>`;
+    }
+    for (let gy = Math.ceil(minY); gy <= maxY; gy++) {
+      html += `<line x1="${P}" y1="${Y(gy)}" x2="${W - P}" y2="${Y(gy)}" class="grid"/>`;
+    }
+    html += `<line x1="${X(0)}" y1="${P}" x2="${X(0)}" y2="${H - P}" class="axis"/>` +
+            `<line x1="${P}" y1="${Y(0)}" x2="${W - P}" y2="${Y(0)}" class="axis"/>`;
+    pts.forEach(p => {
+      html += `<circle cx="${X(p.x)}" cy="${Y(p.y)}" r="4.5" class="pt"/>` +
+              `<text x="${X(p.x) + 8}" y="${Y(p.y) - 8}" class="pt-label">${esc(p.nombre || '')}(${p.x},${p.y})</text>`;
+    });
+    html += '</svg>';
+  }
+  html += '</div>';
+  return html;
 }
 
 // ===== SELECT OPTION =====

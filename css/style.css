@@ -660,6 +660,109 @@ body::before {
   color: var(--accent);
 }
 
+/* Figuras (HTML/CSS/SVG) */
+.figura {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 18px;
+  margin-bottom: 20px;
+  overflow-x: auto;
+}
+
+.figura-titulo {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 14px;
+}
+
+.fig-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.fig-table th, .fig-table td {
+  border: 1px solid var(--border);
+  padding: 8px 12px;
+  text-align: center;
+}
+
+.fig-table th {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  background: var(--card);
+}
+
+.fig-table td { font-family: var(--mono); }
+
+.fig-bar-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.fig-bar-label {
+  width: 90px;
+  flex-shrink: 0;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--text-muted);
+  text-align: right;
+}
+
+.fig-bar-track {
+  flex: 1;
+  height: 18px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.fig-bar-fill {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+}
+
+.fig-bar-value {
+  width: 70px;
+  flex-shrink: 0;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--text);
+}
+
+.fig-plane {
+  display: block;
+  width: 100%;
+  max-width: 320px;
+  height: auto;
+  margin: 0 auto;
+}
+
+.fig-plane .grid { stroke: var(--border); stroke-width: 0.5; opacity: 0.7; }
+.fig-plane .axis { stroke: var(--text-dim); stroke-width: 1.2; }
+.fig-plane .pt { fill: var(--accent); }
+.fig-plane .pt-label { fill: var(--text-muted); font-size: 10px; font-family: var(--mono); }
+
+.fig-img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  margin: 0 auto 20px;
+}
+
 /* Options */
 .options {
   display: flex;

@@ -14422,5 +14422,193 @@
   "stimulus_id": "cie-eden-g1",
   "stimulus_orden": 3,
   "stimulus_tipo": "texto_largo"
+ },
+ {
+  "id": "mat-fig-eden-001",
+  "area": "matematicas",
+  "fuente": "eden-2026",
+  "pagina": null,
+  "enunciado": "Según la gráfica, ¿cuál es la diferencia entre la región con más muertes y la de menos?",
+  "pasaje": "",
+  "opciones": [
+   "5 puntos porcentuales",
+   "10 puntos porcentuales",
+   "15 puntos porcentuales",
+   "25 puntos porcentuales"
+  ],
+  "respuesta_correcta": 3,
+  "explicacion": "Máxima: Andina (35%). Mínima: Orinoquía y Amazonía (10%). Diferencia: 35 − 10 = 25 puntos porcentuales.",
+  "tema": "Estadística: gráficas",
+  "competencia": "Interpretación y representación",
+  "dificultad": "media",
+  "stimulus_id": null,
+  "stimulus_orden": null,
+  "stimulus_tipo": "grafica_datos",
+  "figura": {
+   "tipo": "barras",
+   "titulo": "Muertes por accidentes de tránsito por región (%)",
+   "unidad": "%",
+   "datos": [
+    {
+     "etiqueta": "Andina",
+     "valor": 35
+    },
+    {
+     "etiqueta": "Caribe",
+     "valor": 25
+    },
+    {
+     "etiqueta": "Pacífica",
+     "valor": 20
+    },
+    {
+     "etiqueta": "Orinoquía",
+     "valor": 10
+    },
+    {
+     "etiqueta": "Amazonía",
+     "valor": 10
+    }
+   ]
+  },
+  "media": null,
+  "media_alt": null
+ },
+ {
+  "id": "mat-fig-eden-002",
+  "area": "matematicas",
+  "fuente": "eden-2026",
+  "pagina": null,
+  "enunciado": "Los puntos A y B representan dos antenas en el plano. ¿Cuál es la distancia entre ellas?",
+  "pasaje": "",
+  "opciones": [
+   "5 unidades",
+   "6 unidades",
+   "7 unidades",
+   "10 unidades"
+  ],
+  "respuesta_correcta": 0,
+  "explicacion": "A(1,2), B(4,6): d = √((4−1)² + (6−2)²) = √(9+16) = √25 = 5.",
+  "tema": "Geometría analítica: distancia",
+  "competencia": "Formulación y ejecución",
+  "dificultad": "media",
+  "stimulus_id": null,
+  "stimulus_orden": null,
+  "stimulus_tipo": "plano_cartesiano",
+  "figura": {
+   "tipo": "plano",
+   "titulo": "Antenas en el plano cartesiano",
+   "puntos": [
+    {
+     "x": 1,
+     "y": 2,
+     "nombre": "A"
+    },
+    {
+     "x": 4,
+     "y": 6,
+     "nombre": "B"
+    }
+   ]
+  },
+  "media": null,
+  "media_alt": null
+ },
+ {
+  "id": "cie-fig-eden-001",
+  "area": "ciencias",
+  "fuente": "eden-2026",
+  "pagina": null,
+  "enunciado": "Según la tabla, ¿qué dosis produce el mayor crecimiento y qué pasa si se duplica esa dosis?",
+  "pasaje": "",
+  "opciones": [
+   "10 g; al duplicarla el crecimiento se mantiene",
+   "10 g; al duplicarla (20 g) el crecimiento cae a 8 cm",
+   "20 g; sigue creciendo",
+   "0 g; la planta muere"
+  ],
+  "respuesta_correcta": 1,
+  "explicacion": "Máximo en 10 g (12 cm); con 20 g cae a 8 cm: exceso de fertilizante es contraproducente. Leer tablas.",
+  "tema": "Tablas de datos",
+  "competencia": "Indagación",
+  "dificultad": "media",
+  "stimulus_id": null,
+  "stimulus_orden": null,
+  "stimulus_tipo": "tabla",
+  "figura": {
+   "tipo": "tabla",
+   "titulo": "Crecimiento (cm) según dosis de fertilizante (g)",
+   "columnas": [
+    "Dosis (g)",
+    "0",
+    "5",
+    "10",
+    "15",
+    "20"
+   ],
+   "filas": [
+    [
+     "Crecimiento (cm)",
+     "5",
+     "9",
+     "12",
+     "12",
+     "8"
+    ]
+   ]
+  },
+  "media": null,
+  "media_alt": null
+ },
+ {
+  "id": "lec-fig-eden-001",
+  "area": "lectura",
+  "fuente": "eden-2026",
+  "pagina": null,
+  "enunciado": "Según la gráfica, ¿qué se puede afirmar?",
+  "pasaje": "",
+  "opciones": [
+   "Todas las regiones tienen el mismo porcentaje",
+   "La región Andina concentra el mayor porcentaje (35%)",
+   "La Amazonía supera al Caribe",
+   "El total suma 90%"
+  ],
+  "respuesta_correcta": 1,
+  "explicacion": "Lectura directa: Andina 35% es la barra más alta. Total: 35+25+20+10+10 = 100%.",
+  "tema": "Texto discontinuo",
+  "competencia": "Texto discontinuo",
+  "dificultad": "media",
+  "stimulus_id": null,
+  "stimulus_orden": null,
+  "stimulus_tipo": "grafica_datos",
+  "figura": {
+   "tipo": "barras",
+   "titulo": "Muertes por accidentes de tránsito por región (%)",
+   "unidad": "%",
+   "datos": [
+    {
+     "etiqueta": "Andina",
+     "valor": 35
+    },
+    {
+     "etiqueta": "Caribe",
+     "valor": 25
+    },
+    {
+     "etiqueta": "Pacífica",
+     "valor": 20
+    },
+    {
+     "etiqueta": "Orinoquía",
+     "valor": 10
+    },
+    {
+     "etiqueta": "Amazonía",
+     "valor": 10
+    }
+   ]
+  },
+  "media": null,
+  "media_alt": null
  }
 ]
