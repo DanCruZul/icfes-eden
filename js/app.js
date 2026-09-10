@@ -225,14 +225,76 @@ function sampleRotating(pool, n) {
   return shuffle(picked);
 }
 
+// Proporción oficial por partes (notebook ICFES): inglés P1 6/P2 6/P3 6/P4 10/P5 9/P6 6/P7 12 (de 55)
+const PLAN_INGLES_50 = { P1: 1, P2: 1, P3: 1, P4: 2, P5: 2, P6: 1, P7: 3 };
+const PLAN_INGLES_55 = { P1: 6, P2: 6, P3: 6, P4: 10, P5: 9, P6: 6, P7: 12 };
+// Lectura oficial: Ubicar 25% / Global 42% / Evaluar 33% → examen-8: 2/3/3 · área-41: 10/17/14
+const PLAN_LECTURA_8 = { L: 2, G: 3, E: 3 };
+const PLAN_LECTURA_41 = { L: 10, G: 17, E: 14 };
+
+function parteIngles(q) {
+  const t = (q.competencia || '') + ' ' + (q.tema || '');
+  if (/Parte 7/.test(t)) return 'P7';
+  if (/Parte 6/.test(t)) return 'P6';
+  if (/Parte 5/.test(t)) return 'P5';
+  if (/Parte 4/.test(t) || /Cloze/.test(t)) return 'P4';
+  if (/Parte 3/.test(t)) return 'P3';
+  if (/Parte 2/.test(t)) return 'P2';
+  if (/Parte 1(?!\-)/.test(t) || /Matching/.test(t)) return 'P1';
+  return 'X';
+}
+
+function parteLectura(q) {
+  const t = (q.competencia || '') + ' ' + (q.tema || '');
+  if (/local/i.test(t)) return 'L';
+  if (/global/i.test(t)) return 'G';
+  if (/evaluar|reflexionar/i.test(t)) return 'E';
+  return 'X';
+}
+
+// Toma rotando: primero cada parte según plan, faltantes desde el resto (X primero)
+function takeRot(pool, pred, k, used) {
+  const sub = pool.filter(q => !used.has(q.id) && pred(q));
+  const got = sampleRotating(sub, Math.min(k, sub.length));
+  got.forEach(q => used.add(q.id));
+  return got;
+}
+
+function samplePorPartes(pool, plan, keyFn) {
+  const used = new Set();
+  let out = [];
+  Object.keys(plan).forEach(p => {
+    takeRot(pool, q => keyFn(q) === p, plan[p] || 0, used).forEach(q => out.push(q));
+  });
+  const total = Object.values(plan).reduce((a, b) => a + b, 0);
+  let need = total - out.length;
+  if (need > 0) {
+    const restX = pool.filter(q => !used.has(q.id) && keyFn(q) === 'X');
+    takeRot(restX, () => true, need, used).forEach(q => out.push(q));
+    need = total - out.length;
+  }
+  if (need > 0) {
+    const rest = pool.filter(q => !used.has(q.id));
+    takeRot(rest, () => true, need, used).forEach(q => out.push(q));
+  }
+  return out;
+}
+
 function buildExamenCompleto() {
   // Bloques por materia (orden de sesión oficial ICFES), mezclado dentro de cada bloque.
-  // Grupos con estímulo compartido quedan adyacentes dentro de su bloque.
-  const ORDEN = ['matematicas', 'lectura', 'sociales', 'ciencias', 'ingles'];
+  // Inglés y lectura respetan su proporción oficial por partes/competencias.
+  const poolIng = BANCO.filter(q => q.area === 'ingles');
+  const poolLec = BANCO.filter(q => q.area === 'lectura');
+  const bloques = {
+    matematicas: sampleRotating(BANCO.filter(q => q.area === 'matematicas'), EXAMEN_BLUEPRINT.matematicas),
+    lectura: samplePorPartes(poolLec, PLAN_LECTURA_8, parteLectura),
+    sociales: sampleRotating(BANCO.filter(q => q.area === 'sociales'), EXAMEN_BLUEPRINT.sociales),
+    ciencias: sampleRotating(BANCO.filter(q => q.area === 'ciencias'), EXAMEN_BLUEPRINT.ciencias),
+    ingles: samplePorPartes(poolIng, PLAN_INGLES_50, parteIngles)
+  };
   let out = [];
-  ORDEN.forEach(area => {
-    const pool = BANCO.filter(q => q.area === area);
-    out = out.concat(agruparEstimulos(sampleRotating(pool, Math.min(EXAMEN_BLUEPRINT[area] || 0, pool.length))));
+  ['matematicas', 'lectura', 'sociales', 'ciencias', 'ingles'].forEach(area => {
+    out = out.concat(agruparEstimulos(bloques[area]));
   });
   return out;
 }
@@ -255,8 +317,14 @@ function stripNumeroOrigen(t) {
 
 function buildExamenArea(area) {
   const pool = BANCO.filter(q => q.area === area);
-  const n = Math.min(AREA_EXAM_SIZE[area] || pool.length, pool.length);
-  return agruparEstimulos(sampleRotating(pool, n));
+  let qs;
+  if (area === 'ingles') qs = samplePorPartes(pool, PLAN_INGLES_55, parteIngles);
+  else if (area === 'lectura') qs = samplePorPartes(pool, PLAN_LECTURA_41, parteLectura);
+  else {
+    const n = Math.min(AREA_EXAM_SIZE[area] || pool.length, pool.length);
+    qs = sampleRotating(pool, n);
+  }
+  return agruparEstimulos(qs);
 }
 
 // ===== MODES =====
@@ -334,8 +402,8 @@ function showQuestionSection() {
 // ===== SOCRATIC EXPLANATION BUILDER =====
 function buildSocraticFeedback(q, selectedIdx) {
   const isCorrect = selectedIdx === q.respuesta_correcta;
-  const correctLetter = ['A', 'B', 'C', 'D'][q.respuesta_correcta];
-  const selectedLetter = ['A', 'B', 'C', 'D'][selectedIdx];
+  const correctLetter = ['A', 'B', 'C', 'D', 'E', 'F', 'G'][q.respuesta_correcta];
+  const selectedLetter = ['A', 'B', 'C', 'D', 'E', 'F', 'G'][selectedIdx];
   
   let html = '';
   
@@ -376,7 +444,7 @@ function renderQuestion() {
   if (!q) return;
   
   const container = document.getElementById('questionContainer');
-  const letters = ['A', 'B', 'C', 'D'];
+  const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
   const opts = (q.opciones || []).map(stripNumeroOrigen);
   const stem = stripNumeroOrigen(q.enunciado);
   const isAnswered = state.answers[state.currentIndex] !== undefined;
