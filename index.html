@@ -30,6 +30,7 @@
 
   <!-- Landing -->
   <div class="landing" id="landing">
+    <div class="dossier-bar"><span><span class="kanji">力</span>&nbsp;&nbsp;ICFES-EDÉN · BETA</span><span>LOCAL <span id="localTime">--:--:--</span></span></div>
     <pre class="ascii-torii">  ┏━━━━━━━━━━━━━┓
   ┃ ┌─────────┐ ┃
   ┃ │    力   │ ┃
@@ -37,9 +38,17 @@
   ┃ │         │ ┃
   ┃ │         │ ┃
   ┃ │         │ ┃</pre>
-    <div class="dossier">力 · ICFES DOSSIER // <b id="bancoCount">…</b> · 5 áreas · Calendario B 2027</div>
-    <h2>Simulador ICFES</h2>
-    <p>Preguntas reales de cuadernillos oficiales. Cada examen es distinto: las preguntas rotan respetando la estructura oficial.</p>
+    <h2>Simulador ICFES.</h2>
+    <p>preguntas reales de cuadernillos oficiales. cada examen es distinto: las preguntas rotan respetando la estructura oficial.</p>
+    <div class="meta-grid">
+      <div class="meta-cell"><span>Banco</span><b id="bancoCount">616 preguntas</b></div>
+      <div class="meta-cell"><span>Sesiones</span><b>2 × 4h 30min</b></div>
+      <div class="meta-cell"><span>Ponderación</span><b>3 · 3 · 3 · 3 · 1</b></div>
+      <div class="meta-cell"><span>Modelo</span><b>IRT, no porcentaje</b></div>
+      <div class="meta-cell"><span>Objetivo</span><b>Calendario B 2027</b></div>
+    </div>
+    <img class="hero-img" src="art/hero.png" alt="Mármol dithered estilo Ryoku bone">
+    <div class="edition-line"><span>EDÉN-ICFES · <b id="editionCount">616 preguntas</b></span><span>SCROLL ↓</span></div>
     <div class="kanji-line">力 ━━━━ 美 ━━━━ EDÉN</div>
 
     <div class="modes-grid">
@@ -51,21 +60,35 @@
       </div>
       <div class="mode-card" onclick="window.location.href='roadmap.html'">
         <div class="icon">🗺️</div>
-        <h3><span class="idx">01 //</span>Roadmap de Estudio</h3>
+        <h3><span class="idx">01 //</span>Roadmap de Estudio<span class="margin-kanji">道</span></h3>
         <div class="desc">Plan de 24 semanas (sept 2026 — mar 2027) con todos los temas del ICFES, de básico a avanzado.</div>
         <span class="badge badge-practica">Plan</span>
       </div>
     </div>
 
     <div class="areas-section">
-      <h3><span class="idx">02 //</span>Exámenes por materia</h3>
+      <h3><span class="idx">02 //</span>Método<span class="margin-kanji">力</span></h3>
+      <div class="ed-row">
+        <div class="ed-cell">
+          <img src="art/power.png" alt="Puño de mármol con katana, dithered a bone">
+          <div class="ed-cap"><h4><span class="idx">a //</span>Rotación.</h4><p>cada intento trae preguntas distintas. el banco se agota antes de repetirse.</p></div>
+        </div>
+        <div class="ed-cell">
+          <img src="art/beauty.png" alt="Dama de mármol con balanza y espada, dithered a bone">
+          <div class="ed-cap"><h4><span class="idx">b //</span>IRT, no porcentaje.</h4><p>las difíciles valen más. las 4 áreas de peso 3 mueven el global; el inglés pesa 1.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="areas-section">
+      <h3><span class="idx">03 //</span>Exámenes por materia<span class="margin-kanji">見</span></h3>
       <p style="font-size:12px;color:var(--text-muted);margin-bottom:12px;">Cada materia usa su tamaño real (Mat 50 · Lec 41 · Soc 50 · Cie 58 · Ing 55) con preguntas distintas en cada intento.</p>
       <div class="areas-grid" id="areasGrid"></div>
     </div>
 
     <!-- Ranking Section -->
     <div class="ranking-section">
-      <h3><span class="idx">03 //</span>Ranking Global</h3>
+      <h3><span class="idx">04 //</span>Ranking Global<span class="margin-kanji">蔵</span></h3>
       <div class="ranking-tabs">
         <div class="ranking-tab active" onclick="switchRankingTab('global')">Global</div>
         <div class="ranking-tab" onclick="switchRankingTab('matematicas')">Matemáticas</div>
@@ -84,7 +107,7 @@
 
     <!-- Calculator -->
     <div class="calculator">
-      <h4><span class="idx" style="color:var(--accent)">04 //</span>Calculadora de Puntaje Global</h4>
+      <h4><span class="idx" style="color:var(--accent)">05 //</span>Calculadora de Puntaje Global<span class="margin-kanji">問</span></h4>
       <div class="calc-grid">
         <div>
           <label style="font-size:11px;color:var(--text-muted);display:block;margin-bottom:4px;">Lectura Crítica (×3)</label>

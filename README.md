@@ -75,3 +75,12 @@ const firebaseConfig = {
 ---
 
 *Creado con ❤️ para el vault Edén — Preparación ICFES Saber 11°*
+
+---
+
+## 🎨 Créditos de diseño
+
+UI basada en [ryoku.dev](https://ryoku.dev) (GPL-3.0, © Ryoku):
+- Arte bone dithered (`art/*.png`: hero, torii, power, beauty, beta) y textura `grain.png`
+- Tipografías `fonts/`: Fraunces Variable, Space Grotesk Variable, Space Mono
+- Tokens: PAPER #000 · INK #cdc4ba · RADIUS 2 · NO SHADOW

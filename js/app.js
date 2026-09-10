@@ -655,6 +655,20 @@ async function init() {
 
   const bancoEl = document.getElementById('bancoCount');
   if (bancoEl) bancoEl.textContent = BANCO.length + ' preguntas';
+  const edEl = document.getElementById('editionCount');
+  if (edEl) edEl.textContent = BANCO.length + ' preguntas';
+
+  // LOCAL clock — dossier bar
+  const clockEl = document.getElementById('localTime');
+  if (clockEl) {
+    const tick = () => {
+      const d = new Date();
+      clockEl.textContent = [d.getHours(), d.getMinutes(), d.getSeconds()]
+        .map(n => String(n).padStart(2, '0')).join(':');
+    };
+    tick();
+    setInterval(tick, 1000);
+  }
   
   const areasGrid = document.getElementById('areasGrid');
   Object.keys(AREAS).forEach(key => {

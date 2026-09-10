@@ -1,22 +1,35 @@
 
 /* RYOKU-EDÉN · ICFES Saber 11°
-   Basado en la paleta viva de Ryoku (matugen del wallpaper):
-   tinta #141318 · lavanda #c9beff · rosa #edb8cc · sin amarillos. */
+   Tokens extraídos de ryoku.dev (Nuxt CSS real):
+   PAPER #000 · INK #cdc4ba (bone) · GRAIN 5.5% · RADIUS 2 · NO SHADOW
+   Fraunces (display serif) · Space Grotesk (sans) · Space Mono (mono).
+   Lavanda #c9beff = acento del sistema del usuario, uso secundario. */
+
+@font-face{font-display:swap;font-family:"Fraunces Variable";font-style:normal;font-weight:100 900;src:url(../fonts/fraunces-latin.woff2) format("woff2-variations");}
+@font-face{font-display:swap;font-family:"Space Grotesk Variable";font-style:normal;font-weight:300 700;src:url(../fonts/space-grotesk-latin.woff2) format("woff2-variations");}
+@font-face{font-display:swap;font-family:"Space Mono";font-style:normal;font-weight:400;src:url(../fonts/space-mono-400.woff2) format("woff2");}
+@font-face{font-display:swap;font-family:"Space Mono";font-style:normal;font-weight:700;src:url(../fonts/space-mono-700.woff2) format("woff2");}
 
 :root {
-  --bg: #08070b;
-  --bg-elevated: #100e14;
-  --card: #151319;
-  --card-hover: #1d1a24;
-  --border: #2e2b37;
-  --border-hover: #6f6a7d;
+  --paper: #000;
+  --bg: #000;
+  --bg-elevated: #0a0a0a;
+  --card: #0a0a0a;
+  --card-hover: rgba(205, 196, 186, 0.05);
+  --border: rgba(205, 196, 186, 0.26);
+  --border-hover: rgba(205, 196, 186, 0.42);
+  --line-soft: rgba(205, 196, 186, 0.13);
+  --tint5: rgba(205, 196, 186, 0.05);
+  --tint10: rgba(205, 196, 186, 0.1);
   --accent: #c9beff;
   --accent-hover: #e6deff;
-  --accent-glow: rgba(201, 190, 255, 0.16);
-  --accent-ink: #141318;
-  --text: #e6e1e9;
-  --text-muted: #c9c5d0;
-  --text-dim: #938f99;
+  --accent-glow: rgba(201, 190, 255, 0.14);
+  --accent-ink: #000;
+  --text: #cdc4ba;
+  --text-muted: #b0a9a0;
+  --text-dim: #7a756e;
+  --serif: "Fraunces Variable", "Fraunces", ui-serif, Georgia, serif;
+  --sans: "Space Grotesk Variable", "Space Grotesk", system-ui, sans-serif;
   --success: #c9beff;
   --success-bg: rgba(201, 190, 255, 0.10);
   --danger: #ffb4ab;
@@ -25,18 +38,18 @@
   --warning-bg: rgba(237, 184, 204, 0.10);
   --info: #c9c3dc;
   --info-bg: rgba(201, 195, 220, 0.10);
-  --radius: 3px;
+  --radius: 2px;
   --radius-sm: 2px;
-  --mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'SF Mono', Consolas, monospace;
-  --shadow: 0 2px 0 0 rgba(0, 0, 0, 0.45);
-  --shadow-lg: 0 4px 0 0 rgba(0, 0, 0, 0.5);
+  --mono: "Space Mono", ui-monospace, monospace;
+  --shadow: none;
+  --shadow-lg: none;
   --transition: all 0.15s ease;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  font-family: var(--sans);
   background: var(--bg);
   color: var(--text);
   min-height: 100vh;
@@ -44,18 +57,15 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Dither scanline — textura Ryoku, apenas visible */
+/* Grain 5.5% — textura Ryoku */
 body::before {
   content: '';
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 0;
-  background: repeating-linear-gradient(
-    0deg,
-    rgba(255, 255, 255, 0.012) 0 1px,
-    transparent 1px 3px
-  );
+  background: url(../art/grain.png);
+  opacity: 0.055;
 }
 
 .container {
@@ -82,12 +92,12 @@ body::before {
   gap: 14px;
 }
 
-/* Hanko stamp */
+/* Hanko stamp — bone on black */
 .logo-icon {
   width: 46px;
   height: 46px;
-  background: var(--accent);
-  color: var(--accent-ink);
+  background: var(--text);
+  color: #000;
   border-radius: var(--radius-sm);
   display: flex;
   align-items: center;
@@ -184,6 +194,111 @@ body::before {
   white-space: pre;
 }
 
+/* Dossier bar + meta grid + hero + editorial rows (ryoku.dev) */
+.dossier-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  border-bottom: 1px solid var(--line-soft);
+  padding-bottom: 12px;
+  margin-bottom: 0;
+}
+
+.dossier-bar .kanji { font-size: 1rem; color: var(--text); letter-spacing: 0; }
+
+.meta-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 4px 20px;
+  font-family: var(--mono);
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line-soft);
+  margin-bottom: 32px;
+}
+
+.meta-grid .meta-cell { font-size: 0.72rem; letter-spacing: 0.06em; }
+.meta-grid .meta-cell span { display: block; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.14em; font-size: 0.66rem; }
+.meta-grid .meta-cell b { color: var(--text); font-weight: 400; }
+
+.hero-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius);
+  margin: 28px 0 8px;
+}
+
+.edition-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 40px;
+}
+
+.edition-line b { color: var(--text); font-weight: 400; }
+
+/* Editorial diptych — power / beauty */
+.ed-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  align-items: stretch;
+  margin-bottom: 14px;
+}
+
+.ed-cell {
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--card);
+}
+
+.ed-cell img { display: block; width: 100%; height: auto; }
+
+.ed-cell .ed-cap {
+  padding: 16px 18px;
+  border-top: 1px solid var(--line-soft);
+}
+
+.ed-cell .ed-cap h4 {
+  font-family: var(--serif);
+  font-size: 1.4rem;
+  font-weight: 560;
+  margin-bottom: 4px;
+}
+
+.ed-cell .ed-cap h4 .idx {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--accent);
+  margin-right: 8px;
+  letter-spacing: 0.1em;
+}
+
+.ed-cell .ed-cap p { font-size: 0.95rem; color: var(--text-muted); }
+
+.margin-kanji {
+  font-size: 1.1rem;
+  color: var(--text-dim);
+  margin-left: 10px;
+  vertical-align: baseline;
+}
+
+@media (max-width: 768px) {
+  .ed-row { grid-template-columns: 1fr; }
+}
+
 /* Landing */
 .landing {
   text-align: center;
@@ -191,11 +306,13 @@ body::before {
 }
 
 .landing h2 {
-  font-size: 34px;
-  font-weight: 800;
+  font-family: var(--serif);
+  font-size: clamp(2.6rem, 2rem + 3.6vw, 5rem);
+  font-weight: 560;
+  letter-spacing: -0.01em;
+  line-height: 1.02;
   margin-bottom: 12px;
   color: var(--text);
-  letter-spacing: -0.02em;
 }
 
 .landing p {
@@ -252,8 +369,10 @@ body::before {
 }
 
 .mode-card h3 {
-  font-size: 16px;
-  font-weight: 700;
+  font-family: var(--serif);
+  font-size: 1.4rem;
+  font-weight: 560;
+  letter-spacing: -0.01em;
   margin-bottom: 6px;
 }
 
@@ -810,10 +929,11 @@ body::before {
 }
 
 .results-score {
-  font-family: var(--mono);
-  font-size: 72px;
-  font-weight: 800;
-  color: var(--accent);
+  font-family: var(--serif);
+  font-size: clamp(3.6rem, 8vw, 5.75rem);
+  font-weight: 560;
+  letter-spacing: -0.02em;
+  color: var(--text);
   line-height: 1;
   margin-bottom: 8px;
 }
@@ -982,7 +1102,6 @@ body::before {
 @media (max-width: 768px) {
   .container { padding: 16px; }
   .header { flex-direction: column; gap: 16px; }
-  .landing h2 { font-size: 26px; }
   .modes-grid { grid-template-columns: 1fr; }
   .filters { flex-direction: column; align-items: stretch; }
   .toggle-group { margin-left: 0; }
