@@ -226,12 +226,19 @@ function sampleRotating(pool, n) {
 }
 
 function buildExamenCompleto() {
+  // Bloques por materia (orden de sesión oficial ICFES), mezclado dentro de cada bloque
+  const ORDEN = ['matematicas', 'lectura', 'sociales', 'ciencias', 'ingles'];
   let out = [];
-  Object.keys(EXAMEN_BLUEPRINT).forEach(area => {
+  ORDEN.forEach(area => {
     const pool = BANCO.filter(q => q.area === area);
-    out = out.concat(sampleRotating(pool, Math.min(EXAMEN_BLUEPRINT[area], pool.length)));
+    out = out.concat(sampleRotating(pool, Math.min(EXAMEN_BLUEPRINT[area] || 0, pool.length)));
   });
-  return shuffle(out);
+  return out;
+}
+
+// Limpia la numeración original del cuadernillo pegada al texto ("23. ...", ". Lea...")
+function stripNumeroOrigen(t) {
+  return (t || '').replace(/^\s*(\d+\s*\.\s*|\.\s+)/, '');
 }
 
 function buildExamenArea(area) {
@@ -358,7 +365,8 @@ function renderQuestion() {
   
   const container = document.getElementById('questionContainer');
   const letters = ['A', 'B', 'C', 'D'];
-  const opts = q.opciones || [];
+  const opts = (q.opciones || []).map(stripNumeroOrigen);
+  const stem = stripNumeroOrigen(q.enunciado);
   const isAnswered = state.answers[state.currentIndex] !== undefined;
   const selectedIdx = state.answers[state.currentIndex];
   
@@ -393,14 +401,13 @@ function renderQuestion() {
   container.innerHTML = `
     <div class="question-card fade-in">
       <div class="question-header">
-        <span class="question-number">Pregunta ${state.currentIndex + 1} de ${state.questions.length}</span>
         <div class="question-meta">
           <span class="question-tag competencia">${q.tema || q.competencia || ''}</span>
           <span class="question-tag dificultad-${q.dificultad || 'media'}">${q.dificultad || 'media'}</span>
         </div>
       </div>
       ${passageHtml}
-      <div class="question-text">${q.enunciado}</div>
+      <div class="question-text">${stem}</div>
       <div class="options">${optionsHtml}</div>
       ${feedbackHtml}
     </div>`;
