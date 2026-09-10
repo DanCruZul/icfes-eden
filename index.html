@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ICFES Saber 11° — Simulador Completo | Edén</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="container">
+  <!-- Header -->
+  <div class="header">
+    <div class="logo" onclick="goHome()">
+      <div class="logo-icon">E</div>
+      <div class="logo-text">
+        <h1>ICFES Saber 11°</h1>
+        <span>Simulador Completo — Edén</span>
+      </div>
+    </div>
+    <div style="display:flex;gap:12px;align-items:center;">
+      <div class="connection-status" id="connectionStatus">
+        <span class="dot"></span> <span>Conectando...</span>
+      </div>
+      <div class="timer-container" id="timerContainer" style="display:none;">
+        <div class="timer" id="timer">00:00:00</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Landing -->
+  <div class="landing" id="landing">
+    <h2>🎯 Entrenamiento ICFES</h2>
+    <p>Plataforma completa con preguntas reales de cuadernillos oficiales del ICFES. Elige tu modo de entrenamiento y comienza a prepararte.</p>
+    
+    <div class="modes-grid">
+      <div class="mode-card" onclick="startMode('examen')">
+        <div class="icon">⏱️</div>
+        <h3>Modo Examen</h3>
+        <div class="desc">50 preguntas cronometradas, navegación libre. Al final ves puntaje y errores.</div>
+        <span class="badge badge-examen">Cronometrado</span>
+      </div>
+      <div class="mode-card" onclick="startMode('practica')">
+        <div class="icon">📚</div>
+        <h3>Modo Práctica</h3>
+        <div class="desc">Todas las preguntas con filtro por área, tema y dificultad.</div>
+        <span class="badge badge-practica">Dirigido</span>
+      </div>
+      <div class="mode-card" onclick="startMode('estudio')">
+        <div class="icon">📖</div>
+        <h3>Modo Estudio</h3>
+        <div class="desc">La respuesta correcta y explicación se muestran ANTES de seleccionar. Ideal para aprender.</div>
+        <span class="badge badge-estudio">Educativo</span>
+      </div>
+      <div class="mode-card" onclick="startMode('repaso')">
+        <div class="icon">🔄</div>
+        <h3>Modo Repaso</h3>
+        <div class="desc">Solo las preguntas que fallaste antes. Los errores se guardan localmente.</div>
+        <span class="badge badge-repaso">Errores</span>
+      </div>
+    </div>
+
+    <div class="areas-section">
+      <h3>Práctica por área</h3>
+      <div class="areas-grid" id="areasGrid"></div>
+    </div>
+
+    <!-- Ranking Section -->
+    <div class="ranking-section">
+      <h3>🏆 Ranking Global</h3>
+      <div class="ranking-tabs">
+        <div class="ranking-tab active" onclick="switchRankingTab('global')">Global</div>
+        <div class="ranking-tab" onclick="switchRankingTab('matematicas')">Matemáticas</div>
+        <div class="ranking-tab" onclick="switchRankingTab('lectura')">Lectura</div>
+        <div class="ranking-tab" onclick="switchRankingTab('sociales')">Sociales</div>
+        <div class="ranking-tab" onclick="switchRankingTab('ciencias')">Ciencias</div>
+        <div class="ranking-tab" onclick="switchRankingTab('ingles')">Inglés</div>
+      </div>
+      <div class="ranking-list" id="rankingList">
+        <div class="ranking-empty">
+          <div class="icon">🏆</div>
+          <p>Cargando ranking...</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Calculator -->
+    <div class="calculator">
+      <h4>🧮 Calculadora de Puntaje Global</h4>
+      <div class="calc-grid">
+        <div>
+          <label style="font-size:11px;color:var(--text-muted);display:block;margin-bottom:4px;">Lectura Crítica (×3)</label>
+          <input type="number" class="calc-input" id="calcLectura" min="0" max="100" placeholder="0-100" oninput="calcularPuntaje()">
+        </div>
+        <div>
+          <label style="font-size:11px;color:var(--text-muted);display:block;margin-bottom:4px;">Matemáticas (×3)</label>
+          <input type="number" class="calc-input" id="calcMatematicas" min="0" max="100" placeholder="0-100" oninput="calcularPuntaje()">
+        </div>
+        <div>
+          <label style="font-size:11px;color:var(--text-muted);display:block;margin-bottom:4px;">Sociales (×3)</label>
+          <input type="number" class="calc-input" id="calcSociales" min="0" max="100" placeholder="0-100" oninput="calcularPuntaje()">
+        </div>
+        <div>
+          <label style="font-size:11px;color:var(--text-muted);display:block;margin-bottom:4px;">Ciencias (×3)</label>
+          <input type="number" class="calc-input" id="calcCiencias" min="0" max="100" placeholder="0-100" oninput="calcularPuntaje()">
+        </div>
+        <div>
+          <label style="font-size:11px;color:var(--text-muted);display:block;margin-bottom:4px;">Inglés (×1)</label>
+          <input type="number" class="calc-input" id="calcIngles" min="0" max="100" placeholder="0-100" oninput="calcularPuntaje()">
+        </div>
+      </div>
+      <div class="calc-result">
+        <div class="value" id="calcResult">—</div>
+        <div class="label">Puntaje Global Estimado (0-500)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Question Section -->
+  <div class="question-section" id="questionSection">
+    <div class="filters" id="filters">
+      <div class="filter-group">
+        <label>Área:</label>
+        <select class="filter-select" id="filterArea" onchange="applyFilters()">
+          <option value="todas">Todas</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label>Tema:</label>
+        <select class="filter-select" id="filterTema" onchange="applyFilters()">
+          <option value="todos">Todos</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label>Dificultad:</label>
+        <select class="filter-select" id="filterDificultad" onchange="applyFilters()">
+          <option value="todas">Todas</option>
+          <option value="baja">Baja</option>
+          <option value="media">Media</option>
+          <option value="alta">Alta</option>
+        </select>
+      </div>
+      <div class="toggle-group">
+        <span class="toggle-label">Explicación inmediata</span>
+        <div class="toggle" id="toggleExp" onclick="toggleExplanation()"></div>
+      </div>
+    </div>
+
+    <div class="progress-container" id="progressContainer">
+      <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+      <div class="progress-text">
+        <span id="progressText">Pregunta 1 de 50</span>
+        <span id="progressPercent">0%</span>
+      </div>
+    </div>
+
+    <div class="stats-bar" id="statsBar">
+      <div class="stat-item">
+        <div class="stat-value" id="statCorrectas">0</div>
+        <div class="stat-label">Correctas</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value" id="statIncorrectas">0</div>
+        <div class="stat-label">Incorrectas</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value" id="statTiempo">00:00</div>
+        <div class="stat-label">Tiempo</div>
+      </div>
+    </div>
+
+    <div id="questionContainer"></div>
+    <div class="dots-container" id="dotsContainer"></div>
+    <div class="nav-buttons" id="navButtons"></div>
+  </div>
+
+  <!-- Results Section -->
+  <div class="question-section" id="resultsSection">
+    <div class="results-container">
+      <div class="results-score" id="finalScore">0</div>
+      <div class="results-label">Puntaje Global Estimado</div>
+      <div class="results-breakdown" id="resultsBreakdown"></div>
+      <div class="nav-buttons">
+        <button class="btn btn-secondary" onclick="goHome()">← Volver al inicio</button>
+        <button class="btn btn-primary" onclick="restartMode()">Repetir examen</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="js/app.js"></script>
+</body>
+</html>

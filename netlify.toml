@@ -1,0 +1,22 @@
+# Configuración para Netlify
+# netlify.toml
+
+[build]
+  publish = "."
+
+[build.environment]
+  NODE_VERSION = "18"
+
+# Headers de seguridad
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+# Redirección para SPA (opcional)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
