@@ -364,7 +364,9 @@ body::before {
 }
 
 .mode-card .icon {
-  font-size: 26px;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text);
   margin-bottom: 12px;
 }
 
@@ -459,6 +461,7 @@ body::before {
   align-items: center;
   justify-content: center;
   font-size: 19px;
+  font-weight: 700;
   flex-shrink: 0;
   border: 1px solid var(--border);
 }

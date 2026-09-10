@@ -61,11 +61,11 @@ async function loadBanco() {
 }
 
 const AREAS = {
-  matematicas: { nombre: 'Matemáticas', peso: 3, icon: '📐', color: '#c9beff' },
-  lectura: { nombre: 'Lectura Crítica', peso: 3, icon: '📖', color: '#edb8cc' },
-  sociales: { nombre: 'Sociales y Ciudadanas', peso: 3, icon: '🏛️', color: '#c9c3dc' },
-  ciencias: { nombre: 'Ciencias Naturales', peso: 3, icon: '🔬', color: '#e6deff' },
-  ingles: { nombre: 'Inglés', peso: 1, icon: '🌍', color: '#ffb4ab' }
+  matematicas: { nombre: 'Matemáticas', peso: 3, icon: '数', color: '#c9beff' },
+  lectura: { nombre: 'Lectura Crítica', peso: 3, icon: '文', color: '#edb8cc' },
+  sociales: { nombre: 'Sociales y Ciudadanas', peso: 3, icon: '国', color: '#c9c3dc' },
+  ciencias: { nombre: 'Ciencias Naturales', peso: 3, icon: '理', color: '#e6deff' },
+  ingles: { nombre: 'Inglés', peso: 1, icon: '語', color: '#ffb4ab' }
 };
 
 // ===== STATE =====
@@ -128,7 +128,7 @@ function renderRanking() {
   if (!container) return;
   
   if (state.rankingData.length === 0) {
-    container.innerHTML = `<div class="ranking-empty"><div class="icon">🏆</div><p>No hay puntajes aún</p><p style="font-size:12px;margin-top:4px;">¡Sé el primero!</p></div>`;
+    container.innerHTML = `<div class="ranking-empty"><div class="icon">位</div><p>No hay puntajes aún</p><p style="font-size:12px;margin-top:4px;">¡Sé el primero!</p></div>`;
     return;
   }
   
@@ -153,7 +153,7 @@ function showNameModal() {
   overlay.id = 'nameModal';
   overlay.innerHTML = `
     <div class="modal">
-      <h3>👋 ¿Cómo te llamas?</h3>
+      <h3>¿Cómo te llamas?</h3>
       <p>Tu nombre aparecerá en el ranking cuando termines un examen.</p>
       <input type="text" class="modal-input" id="nameInput" placeholder="Tu nombre..." maxlength="20">
       <div class="modal-buttons">
@@ -322,19 +322,19 @@ function buildSocraticFeedback(q, selectedIdx) {
   
   // Estado: correcto o incorrecto
   if (isCorrect) {
-    html += `<div class="feedback-header feedback-correct">✅ ¡Correcto! La respuesta es ${correctLetter}</div>`;
+    html += `<div class="feedback-header feedback-correct">正 ¡Correcto! La respuesta es ${correctLetter}</div>`;
   } else {
-    html += `<div class="feedback-header feedback-incorrect">❌ Incorrecto. Elegiste ${selectedLetter}, la correcta es ${correctLetter}</div>`;
+    html += `<div class="feedback-header feedback-incorrect">誤 Incorrecto. Elegiste ${selectedLetter}, la correcta es ${correctLetter}</div>`;
   }
   
   // Explicación (si existe)
   if (q.explicacion) {
-    html += `<div class="feedback-explanation"><strong>💡 Explicación:</strong> ${q.explicacion}</div>`;
+    html += `<div class="feedback-explanation"><strong>解 Explicación:</strong> ${q.explicacion}</div>`;
   }
   
   // Método socrático: guiar con preguntas
   if (q.tema) {
-    html += `<div class="feedback-socratic"><strong>🧠 Para reflexionar:</strong> `;
+    html += `<div class="feedback-socratic"><strong>省 Para reflexionar:</strong> `;
     if (isCorrect) {
       html += `Excelente elección. ¿Podrías explicar por qué la opción ${correctLetter} es correcta sin mirar la explicación? Esto ayudará a consolidar tu conocimiento sobre <em>${q.tema}</em>.`;
     } else {
@@ -345,7 +345,7 @@ function buildSocraticFeedback(q, selectedIdx) {
   
   // Competencia evaluada
   if (q.competencia && q.competencia !== q.tema) {
-    html += `<div class="feedback-competencia"><strong>📝 Competencia:</strong> ${q.competencia}</div>`;
+    html += `<div class="feedback-competencia"><strong>技 Competencia:</strong> ${q.competencia}</div>`;
   }
   
   return html;
