@@ -181,9 +181,8 @@ function closeNameModal() {
 }
 
 // ===== EXAMEN: estructura oficial + rotación =====
-// Proporción real del ICFES (254 calificables) escalada a examen de 50:
-// Mat 50/254→10 · Lec 41/254→8 · Soc 50/254→10 · Cie 58/254→11 · Ing 55/254→11
-const EXAMEN_BLUEPRINT = { matematicas: 10, lectura: 8, sociales: 10, ciencias: 11, ingles: 11 };
+// Examen COMPLETO oficial: 254 calificables (Mat 50 · Lec 41 · Soc 50 · Cie 58 · Ing 55)
+const EXAMEN_BLUEPRINT = { matematicas: 50, lectura: 41, sociales: 50, ciencias: 58, ingles: 55 };
 // Examen por materia: tamaño real de cada prueba oficial
 const AREA_EXAM_SIZE = { matematicas: 50, lectura: 41, sociales: 50, ciencias: 58, ingles: 55 };
 
@@ -226,10 +225,8 @@ function sampleRotating(pool, n) {
 }
 
 // Proporción oficial por partes (notebook ICFES): inglés P1 6/P2 6/P3 6/P4 10/P5 9/P6 6/P7 12 (de 55)
-const PLAN_INGLES_50 = { P1: 1, P2: 1, P3: 1, P4: 2, P5: 2, P6: 1, P7: 3 };
 const PLAN_INGLES_55 = { P1: 6, P2: 6, P3: 6, P4: 10, P5: 9, P6: 6, P7: 12 };
-// Lectura oficial: Ubicar 25% / Global 42% / Evaluar 33% → examen-8: 2/3/3 · área-41: 10/17/14
-const PLAN_LECTURA_8 = { L: 2, G: 3, E: 3 };
+// Lectura oficial: Ubicar 25% / Global 42% / Evaluar 33% → área-41: 10/17/14
 const PLAN_LECTURA_41 = { L: 10, G: 17, E: 14 };
 
 function parteIngles(q) {
@@ -287,10 +284,10 @@ function buildExamenCompleto() {
   const poolLec = BANCO.filter(q => q.area === 'lectura');
   const bloques = {
     matematicas: sampleRotating(BANCO.filter(q => q.area === 'matematicas'), EXAMEN_BLUEPRINT.matematicas),
-    lectura: samplePorPartes(poolLec, PLAN_LECTURA_8, parteLectura),
+    lectura: samplePorPartes(poolLec, PLAN_LECTURA_41, parteLectura),
     sociales: sampleRotating(BANCO.filter(q => q.area === 'sociales'), EXAMEN_BLUEPRINT.sociales),
     ciencias: sampleRotating(BANCO.filter(q => q.area === 'ciencias'), EXAMEN_BLUEPRINT.ciencias),
-    ingles: samplePorPartes(poolIng, PLAN_INGLES_50, parteIngles)
+    ingles: samplePorPartes(poolIng, PLAN_INGLES_55, parteIngles)
   };
   let out = [];
   ['matematicas', 'lectura', 'sociales', 'ciencias', 'ingles'].forEach(area => {
@@ -496,7 +493,7 @@ function renderQuestion() {
     <div class="question-card fade-in">
       <div class="question-header">
         <div class="question-meta">
-          <span class="question-tag competencia">${q.tema || q.competencia || ''}</span>
+          <span class="question-tag competencia">${q.tema || q.competencia || (typeof AREAS !== 'undefined' && AREAS[q.area] ? AREAS[q.area].nombre : q.area)}</span>
           <span class="question-tag dificultad-${q.dificultad || 'media'}">${q.dificultad || 'media'}</span>
         </div>
       </div>
