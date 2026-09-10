@@ -8,7 +8,7 @@ simulador-icfes-netlify.zip
 ├── netlify.toml        ← Configuración de Netlify
 ├── css/style.css       ← Estilos (dark mode profesional)
 ├── js/app.js           ← Lógica del simulador + Firebase
-└── data/banco.json     ← 629 preguntas reales de cuadernillos oficiales ICFES
+└── data/banco.json     ← 616 preguntas reales de cuadernillos oficiales ICFES
 ```
 
 ## 🚀 Subida a Netlify
@@ -53,7 +53,7 @@ const firebaseConfig = {
 
 ## 🎯 Funcionalidades
 
-- ✅ **629 preguntas** reales de cuadernillos oficiales ICFES
+- ✅ **616 preguntas** reales de cuadernillos oficiales ICFES
 - ✅ **Examen completo:** 50 preguntas cronometradas con proporción oficial (Mat 10 · Lec 8 · Soc 10 · Cie 11 · Ing 11), distintas en cada intento
 - ✅ **Exámenes por materia:** tamaño real oficial (Mat 50 · Lec 41 · Soc 50 · Cie 58 · Ing 55), con rotación sin repetir hasta agotar el banco
 - ✅ **Calculadora de puntaje** con fórmula de ponderación oficial

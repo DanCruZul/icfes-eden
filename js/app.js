@@ -652,6 +652,9 @@ async function init() {
   await loadBanco();
   await loadFirebase();
   showNameModal();
+
+  const bancoEl = document.getElementById('bancoCount');
+  if (bancoEl) bancoEl.textContent = BANCO.length + ' preguntas';
   
   const areasGrid = document.getElementById('areasGrid');
   Object.keys(AREAS).forEach(key => {

@@ -4,12 +4,12 @@
    tinta #141318 · lavanda #c9beff · rosa #edb8cc · sin amarillos. */
 
 :root {
-  --bg: #0f0d13;
-  --bg-elevated: #1c1b20;
-  --card: #201f25;
-  --card-hover: #2b292f;
-  --border: #48454e;
-  --border-hover: #938f99;
+  --bg: #08070b;
+  --bg-elevated: #100e14;
+  --card: #151319;
+  --card-hover: #1d1a24;
+  --border: #2e2b37;
+  --border-hover: #6f6a7d;
   --accent: #c9beff;
   --accent-hover: #e6deff;
   --accent-glow: rgba(201, 190, 255, 0.16);
@@ -168,6 +168,20 @@ body::before {
   letter-spacing: 0.3em;
   margin: 0 auto 32px;
   user-select: none;
+}
+
+/* ASCII torii — Ryoku bone art */
+.ascii-torii {
+  display: inline-block;
+  text-align: left;
+  font-family: var(--mono);
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--accent);
+  opacity: 0.9;
+  margin: 0 auto 20px;
+  user-select: none;
+  white-space: pre;
 }
 
 /* Landing */
