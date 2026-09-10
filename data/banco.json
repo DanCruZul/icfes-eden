@@ -13566,5 +13566,137 @@
   "stimulus_id": null,
   "stimulus_orden": null,
   "stimulus_tipo": null
+ },
+ {
+  "id": "ing-p7-eden-001",
+  "area": "ingles",
+  "fuente": "eden-2026",
+  "pagina": null,
+  "enunciado": "Choose the best word for the blank.",
+  "pasaje": "The Amazon rainforest produces large amounts of oxygen. ___, it absorbs carbon dioxide, which helps fight climate change.",
+  "opciones": [
+   "However",
+   "Also",
+   "But",
+   "Although"
+  ],
+  "respuesta_correcta": 1,
+  "explicacion": "Conector de adición: 'Also' suma una segunda función. However/But/Although son contraste.",
+  "tema": "Parte 7 — Cloze léxico",
+  "competencia": "Parte 7 — Cloze léxico",
+  "dificultad": "B1",
+  "stimulus_id": null,
+  "stimulus_orden": null,
+  "stimulus_tipo": "cloze"
+ },
+ {
+  "id": "ing-p7-eden-002",
+  "area": "ingles",
+  "fuente": "eden-2026",
+  "pagina": null,
+  "enunciado": "Choose the best word for the blank.",
+  "pasaje": "Cycling to work is healthy. ___, it reduces traffic and pollution in the city.",
+  "opciones": [
+   "Moreover",
+   "Despite",
+   "Unless",
+   "Although"
+  ],
+  "respuesta_correcta": 0,
+  "explicacion": "Moreover agrega un beneficio adicional. Despite/Unless/Although introducen contraste o condición.",
+  "tema": "Parte 7 — Cloze léxico",
+  "competencia": "Parte 7 — Cloze léxico",
+  "dificultad": "B1",
+  "stimulus_id": null,
+  "stimulus_orden": null,
+  "stimulus_tipo": "cloze"
+ },
+ {
+  "id": "ing-p7-eden-003",
+  "area": "ingles",
+  "fuente": "eden-2026",
+  "pagina": null,
+  "enunciado": "Choose the best word for the blank.",
+  "pasaje": "The museum was closed ___ the rain flooded the entrance.",
+  "opciones": [
+   "because",
+   "although",
+   "despite",
+   "instead"
+  ],
+  "respuesta_correcta": 0,
+  "explicacion": "Causa directa: 'because' + oración. Despite va con sustantivo/gerundio, although es contraste.",
+  "tema": "Parte 7 — Cloze léxico",
+  "competencia": "Parte 7 — Cloze léxico",
+  "dificultad": "B1",
+  "stimulus_id": null,
+  "stimulus_orden": null,
+  "stimulus_tipo": "cloze"
+ },
+ {
+  "id": "ing-p7-eden-004",
+  "area": "ingles",
+  "fuente": "eden-2026",
+  "pagina": null,
+  "enunciado": "Choose the best word for the blank.",
+  "pasaje": "She studied medicine ___ she wanted to help her community.",
+  "opciones": [
+   "but",
+   "because",
+   "however",
+   "despite"
+  ],
+  "respuesta_correcta": 1,
+  "explicacion": "Propósito/causa: 'because'. But/however son contraste, despite exige sustantivo.",
+  "tema": "Parte 7 — Cloze léxico",
+  "competencia": "Parte 7 — Cloze léxico",
+  "dificultad": "B1",
+  "stimulus_id": null,
+  "stimulus_orden": null,
+  "stimulus_tipo": "cloze"
+ },
+ {
+  "id": "ing-p7-eden-005",
+  "area": "ingles",
+  "fuente": "eden-2026",
+  "pagina": null,
+  "enunciado": "Choose the best word for the blank.",
+  "pasaje": "The match was cancelled ___ the storm, so the teams went home.",
+  "opciones": [
+   "due to",
+   "although",
+   "however",
+   "instead of"
+  ],
+  "respuesta_correcta": 0,
+  "explicacion": "'Due to' + sustantivo (the storm) = causa. Although/however son contraste.",
+  "tema": "Parte 7 — Cloze léxico",
+  "competencia": "Parte 7 — Cloze léxico",
+  "dificultad": "B1",
+  "stimulus_id": null,
+  "stimulus_orden": null,
+  "stimulus_tipo": "cloze"
+ },
+ {
+  "id": "ing-p7-eden-006",
+  "area": "ingles",
+  "fuente": "eden-2026",
+  "pagina": null,
+  "enunciado": "Choose the best word for the blank.",
+  "pasaje": "He saved money for years. ___, he could buy the house without a loan.",
+  "opciones": [
+   "Finally",
+   "Suddenly",
+   "Hardly",
+   "Nearly"
+  ],
+  "respuesta_correcta": 0,
+  "explicacion": "Finally marca la conclusión de un proceso largo. Suddenly es lo opuesto; hardly/nearly cambian el sentido.",
+  "tema": "Parte 7 — Cloze léxico",
+  "competencia": "Parte 7 — Cloze léxico",
+  "dificultad": "B1",
+  "stimulus_id": null,
+  "stimulus_orden": null,
+  "stimulus_tipo": "cloze"
  }
 ]
