@@ -78,7 +78,6 @@ let state = {
   startTime: null,
   timerInterval: null,
   elapsed: 0,
-  immediateExp: false,
   filterArea: 'todas',
   filterTema: 'todos',
   filterDificultad: 'todas',
@@ -198,10 +197,6 @@ function startMode(mode) {
   } else if (mode === 'practica') {
     state.questions = [...BANCO];
     stopTimer();
-  } else if (mode === 'estudio') {
-    state.questions = [...BANCO];
-    state.immediateExp = true;
-    stopTimer();
   } else if (mode === 'repaso') {
     state.questions = state.errors.length > 0 ? [...state.errors] : [...BANCO];
     stopTimer();
@@ -252,8 +247,46 @@ function showQuestionSection() {
   document.getElementById('statsBar').style.display = state.mode === 'examen' ? 'flex' : 'none';
   document.getElementById('progressContainer').style.display = 'block';
   
-  // Reset dots to collapsed for large question sets
   state.dotsCollapsed = state.questions.length > 50;
+}
+
+// ===== SOCRATIC EXPLANATION BUILDER =====
+function buildSocraticFeedback(q, selectedIdx) {
+  const isCorrect = selectedIdx === q.respuesta_correcta;
+  const correctLetter = ['A', 'B', 'C', 'D'][q.respuesta_correcta];
+  const selectedLetter = ['A', 'B', 'C', 'D'][selectedIdx];
+  
+  let html = '';
+  
+  // Estado: correcto o incorrecto
+  if (isCorrect) {
+    html += `<div class="feedback-header feedback-correct">✅ ¡Correcto! La respuesta es ${correctLetter}</div>`;
+  } else {
+    html += `<div class="feedback-header feedback-incorrect">❌ Incorrecto. Elegiste ${selectedLetter}, la correcta es ${correctLetter}</div>`;
+  }
+  
+  // Explicación (si existe)
+  if (q.explicacion) {
+    html += `<div class="feedback-explanation"><strong>💡 Explicación:</strong> ${q.explicacion}</div>`;
+  }
+  
+  // Método socrático: guiar con preguntas
+  if (q.tema) {
+    html += `<div class="feedback-socratic"><strong>🧠 Para reflexionar:</strong> `;
+    if (isCorrect) {
+      html += `Excelente elección. ¿Podrías explicar por qué la opción ${correctLetter} es correcta sin mirar la explicación? Esto ayudará a consolidar tu conocimiento sobre <em>${q.tema}</em>.`;
+    } else {
+      html += `Cuando revises esta pregunta de <em>${q.tema}</em>, pregúntate: ¿qué información clave del enunciado me faltó por considerar? ¿Qué distractor me confundió y por qué?`;
+    }
+    html += `</div>`;
+  }
+  
+  // Competencia evaluada
+  if (q.competencia && q.competencia !== q.tema) {
+    html += `<div class="feedback-competencia"><strong>📝 Competencia:</strong> ${q.competencia}</div>`;
+  }
+  
+  return html;
 }
 
 // ===== RENDER QUESTION =====
@@ -264,24 +297,20 @@ function renderQuestion() {
   const container = document.getElementById('questionContainer');
   const letters = ['A', 'B', 'C', 'D'];
   const opts = q.opciones || [];
+  const isAnswered = state.answers[state.currentIndex] !== undefined;
+  const selectedIdx = state.answers[state.currentIndex];
   
   let passageHtml = q.pasaje ? `<div class="question-passage">${q.pasaje}</div>` : '';
   
   let optionsHtml = '';
   opts.forEach((opt, i) => {
-    const isAnswered = state.answers[state.currentIndex] !== undefined;
     const isCorrect = i === q.respuesta_correcta;
-    
     let cls = 'option';
+    
     if (isAnswered) {
-      if (state.immediateExp && state.mode === 'estudio') {
-        // Modo estudio: mostrar cuál es correcta visualmente desde antes
-        if (isCorrect) cls += ' correct';
-        cls += ' disabled';
+      if (selectedIdx === i) {
+        cls += isCorrect ? ' correct' : ' incorrect';
       } else {
-        if (state.answers[state.currentIndex] === i) {
-          cls += isCorrect ? ' correct' : ' incorrect';
-        }
         cls += ' disabled';
       }
     }
@@ -293,15 +322,10 @@ function renderQuestion() {
       </div>`;
   });
   
-  // Explicación visible
-  let explanationHtml = '';
-  const showExp = state.immediateExp && state.mode === 'estudio' ? true : state.answers[state.currentIndex] !== undefined;
-  if (q.explicacion && showExp) {
-    explanationHtml = `
-      <div class="explanation show" id="explanation">
-        <div class="explanation-title">Explicación</div>
-        ${q.explicacion}
-      </div>`;
+  // Feedback socrático (visible después de responder en práctica)
+  let feedbackHtml = '';
+  if (isAnswered && state.mode === 'practica') {
+    feedbackHtml = `<div class="socratic-feedback fade-in">${buildSocraticFeedback(q, selectedIdx)}</div>`;
   }
   
   container.innerHTML = `
@@ -316,7 +340,7 @@ function renderQuestion() {
       ${passageHtml}
       <div class="question-text">${q.enunciado}</div>
       <div class="options">${optionsHtml}</div>
-      ${explanationHtml}
+      ${feedbackHtml}
     </div>`;
   
   updateProgress();
@@ -328,10 +352,7 @@ function renderQuestion() {
 function selectOption(idx) {
   const q = state.questions[state.currentIndex];
   
-  // Si ya respondió en modo estudio, no hacer nada (solo lectura)
-  if (state.mode === 'estudio' && state.answers[state.currentIndex] !== undefined) return;
-  
-  // Si ya respondió en otros modos, no hacer nada
+  // No permitir cambiar respuesta
   if (state.answers[state.currentIndex] !== undefined) return;
   
   state.answers[state.currentIndex] = idx;
@@ -356,9 +377,14 @@ function selectOption(idx) {
     }
   });
   
-  // Mostrar explicación
-  const exp = document.getElementById('explanation');
-  if (exp) exp.classList.add('show');
+  // Mostrar feedback socrático (en práctica)
+  if (state.mode === 'practica') {
+    const container = document.getElementById('questionContainer');
+    const feedbackDiv = document.createElement('div');
+    feedbackDiv.className = 'socratic-feedback fade-in';
+    feedbackDiv.innerHTML = buildSocraticFeedback(q, idx);
+    container.querySelector('.question-card').appendChild(feedbackDiv);
+  }
   
   updateStats();
   renderDots();
@@ -369,9 +395,7 @@ function renderDots() {
   const container = document.getElementById('dotsContainer');
   const total = state.questions.length;
   
-  // Si hay muchas preguntas, mostrar solo ventana deslizable + botón expandir
   if (total > 50 && state.dotsCollapsed) {
-    // Mostrar solo 20 alrededor de la actual
     const window = 20;
     const start = Math.max(0, state.currentIndex - Math.floor(window / 2));
     const end = Math.min(total, start + window);
@@ -391,7 +415,6 @@ function renderDots() {
     
     container.innerHTML = html;
   } else {
-    // Mostrar todas (con scroll si son muchas)
     let html = total > 50 ? `<button class="dots-toggle" onclick="toggleDots()">▲ Ocultar</button>` : '';
     html += `<div class="dots-row ${total > 50 ? 'dots-scroll' : ''}">`;
     
@@ -447,7 +470,7 @@ function renderNavButtons() {
     <button class="btn btn-secondary" onclick="goHome()">← Inicio</button>
     <button class="btn btn-secondary" onclick="prevQuestion()" ${!hasPrev ? 'disabled' : ''}>← Anterior</button>
     <button class="btn btn-primary" onclick="nextQuestion()" ${!hasNext ? 'disabled' : ''}>Siguiente →</button>
-    ${isLast ? '<button class="btn btn-success" onclick="finishExam()">Finalizar examen ✓</button>' : ''}
+    ${isLast && state.mode === 'examen' ? '<button class="btn btn-success" onclick="finishExam()">Finalizar examen ✓</button>' : ''}
   `;
 }
 
@@ -538,12 +561,7 @@ function restartMode() {
   startMode(state.mode);
 }
 
-// ===== TOGGLES =====
-function toggleExplanation() {
-  state.immediateExp = !state.immediateExp;
-  document.getElementById('toggleExp').classList.toggle('active', state.immediateExp);
-}
-
+// ===== FILTERS =====
 function applyFilters() {
   state.filterArea = document.getElementById('filterArea').value;
   state.filterTema = document.getElementById('filterTema').value;
@@ -586,7 +604,6 @@ async function init() {
   await loadFirebase();
   showNameModal();
   
-  // Populate area filter
   const areaSelect = document.getElementById('filterArea');
   Object.keys(AREAS).forEach(key => {
     const opt = document.createElement('option');
@@ -595,7 +612,6 @@ async function init() {
     areaSelect.appendChild(opt);
   });
   
-  // Populate areas grid
   const areasGrid = document.getElementById('areasGrid');
   Object.keys(AREAS).forEach(key => {
     const area = AREAS[key];

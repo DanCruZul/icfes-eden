@@ -37,25 +37,19 @@
       <div class="mode-card" onclick="startMode('examen')">
         <div class="icon">⏱️</div>
         <h3>Modo Examen</h3>
-        <div class="desc">50 preguntas cronometradas, navegación libre. Al final ves puntaje y errores.</div>
+        <div class="desc">50 preguntas cronometradas que simulan el ICFES real. Al final ves tu puntaje global.</div>
         <span class="badge badge-examen">Cronometrado</span>
       </div>
       <div class="mode-card" onclick="startMode('practica')">
         <div class="icon">📚</div>
         <h3>Modo Práctica</h3>
-        <div class="desc">Todas las preguntas con filtro por área, tema y dificultad.</div>
-        <span class="badge badge-practica">Dirigido</span>
-      </div>
-      <div class="mode-card" onclick="startMode('estudio')">
-        <div class="icon">📖</div>
-        <h3>Modo Estudio</h3>
-        <div class="desc">La respuesta correcta y explicación se muestran ANTES de seleccionar. Ideal para aprender.</div>
-        <span class="badge badge-estudio">Educativo</span>
+        <div class="desc">Practica por área, tema o competencia. Después de cada pregunta ves si fue correcta + explicación detallada.</div>
+        <span class="badge badge-practica">Inmediato</span>
       </div>
       <div class="mode-card" onclick="startMode('repaso')">
         <div class="icon">🔄</div>
         <h3>Modo Repaso</h3>
-        <div class="desc">Solo las preguntas que fallaste antes. Los errores se guardan localmente.</div>
+        <div class="desc">Solo las preguntas que fallaste antes. Los errores se guardan para que los repitas.</div>
         <span class="badge badge-repaso">Errores</span>
       </div>
     </div>
@@ -139,10 +133,6 @@
           <option value="media">Media</option>
           <option value="alta">Alta</option>
         </select>
-      </div>
-      <div class="toggle-group">
-        <span class="toggle-label">Explicación inmediata</span>
-        <div class="toggle" id="toggleExp" onclick="toggleExplanation()"></div>
       </div>
     </div>
 
