@@ -5,14 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Roadmap ICFES Saber 11° — De 0 a 100 | Edén</title>
 <style>
-:root{--bg:#0a0e14;--bg-elevated:#111827;--card:#1a2028;--card-hover:#242d38;--border:#2d3748;--accent:#3b82f6;--accent-hover:#2563eb;--text:#e2e8f0;--text-muted:#94a3b8;--text-dim:#64748b;--success:#10b981;--success-bg:rgba(16,185,129,.1);--danger:#ef4444;--danger-bg:rgba(239,68,68,.1);--warning:#f59e0b;--warning-bg:rgba(245,158,11,.1);--info:#06b6d4;--info-bg:rgba(6,182,212,.1);--radius:12px;--radius-sm:8px;--transition:all .2s ease}
+:root{--bg:#0f0d13;--bg-elevated:#1c1b20;--card:#201f25;--card-hover:#2b292f;--border:#48454e;--accent:#c9beff;--accent-hover:#e6deff;--text:#e6e1e9;--text-muted:#c9c5d0;--text-dim:#938f99;--success:#c9beff;--success-bg:rgba(201,190,255,.1);--danger:#ffb4ab;--danger-bg:rgba(255,180,171,.1);--warning:#edb8cc;--warning-bg:rgba(237,184,204,.1);--info:#c9c3dc;--info-bg:rgba(201,195,220,.1);--radius:3px;--radius-sm:2px;--transition:all .15s ease}
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh}
 .container{max-width:1100px;margin:0 auto;padding:24px}
 .header{display:flex;justify-content:space-between;align-items:center;padding:16px 0 24px;border-bottom:1px solid var(--border);margin-bottom:32px}
 .logo{display:flex;align-items:center;gap:14px;cursor:pointer}
 .logo:hover .logo-icon{transform:scale(1.05)}
-.logo-icon{width:48px;height:48px;background:linear-gradient(135deg,var(--accent),#8b5cf6);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800;color:#fff;transition:var(--transition)}
+.logo-icon{width:48px;height:48px;background:var(--accent);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800;color:#fff;transition:var(--transition)}
 .logo-text h1{font-size:20px;font-weight:700}
 .logo-text span{font-size:12px;color:var(--text-muted)}
 .home-btn{padding:10px 20px;border-radius:var(--radius-sm);background:var(--card);border:1px solid var(--border);color:var(--text);font-size:13px;font-weight:600;cursor:pointer;transition:var(--transition);text-decoration:none;display:inline-flex;align-items:center;gap:8px}
@@ -46,19 +46,19 @@ h4{font-size:15px;font-weight:700;margin-bottom:8px;color:var(--accent)}
 .topics-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
 .topic{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-sm);padding:16px;position:relative;overflow:hidden}
 .topic::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%}
-.topic.math::before{background:#3b82f6}
-.topic.lectura::before{background:#8b5cf6}
-.topic.sociales::before{background:#f59e0b}
-.topic.ciencias::before{background:#10b981}
-.topic.ingles::before{background:#ef4444}
+.topic.math::before{background:#c9beff}
+.topic.lectura::before{background:#edb8cc}
+.topic.sociales::before{background:#c9c3dc}
+.topic.ciencias::before{background:#e6deff}
+.topic.ingles::before{background:#ffb4ab}
 
 .topic-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
 .topic-area{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;padding:3px 8px;border-radius:12px}
-.topic-area.math{background:rgba(59,130,246,.15);color:#3b82f6}
-.topic-area.lectura{background:rgba(139,92,246,.15);color:#8b5cf6}
-.topic-area.sociales{background:rgba(245,158,11,.15);color:#f59e0b}
-.topic-area.ciencias{background:rgba(16,185,129,.15);color:#10b981}
-.topic-area.ingles{background:rgba(239,68,68,.15);color:#ef4444}
+.topic-area.math{background:rgba(201,190,255,.12);color:#c9beff}
+.topic-area.lectura{background:rgba(237,184,204,.12);color:#edb8cc}
+.topic-area.sociales{background:rgba(201,195,220,.12);color:#c9c3dc}
+.topic-area.ciencias{background:rgba(230,222,255,.12);color:#e6deff}
+.topic-area.ingles{background:rgba(255,180,171,.12);color:#ffb4ab}
 
 .topic-title{font-size:14px;font-weight:600;margin-bottom:6px}
 .topic-desc{font-size:12px;color:var(--text-muted);line-height:1.5;margin-bottom:10px}
@@ -144,7 +144,7 @@ h4{font-size:15px;font-weight:700;margin-bottom:8px;color:var(--accent)}
   <!-- FASE 1 -->
   <div class="phase">
     <div class="phase-header">
-      <div class="phase-icon" style="background:rgba(16,185,129,.15)">📚</div>
+      <div class="phase-icon" style="background:rgba(230,222,255,.12)">📚</div>
       <div class="phase-info">
         <h3>Fase 1: Cimientos (Semanas 1-4)</h3>
         <span class="phase-date">Septiembre 2026</span>
@@ -347,7 +347,7 @@ h4{font-size:15px;font-weight:700;margin-bottom:8px;color:var(--accent)}
   <!-- FASE 2 -->
   <div class="phase">
     <div class="phase-header">
-      <div class="phase-icon" style="background:rgba(245,158,11,.15)">🔬</div>
+      <div class="phase-icon" style="background:rgba(201,195,220,.12)">🔬</div>
       <div class="phase-info">
         <h3>Fase 2: Construcción (Semanas 5-10)</h3>
         <span class="phase-date">Octubre — Noviembre 2026</span>
@@ -551,7 +551,7 @@ h4{font-size:15px;font-weight:700;margin-bottom:8px;color:var(--accent)}
   <!-- FASE 3 -->
   <div class="phase">
     <div class="phase-header">
-      <div class="phase-icon" style="background:rgba(59,130,246,.15)">📊</div>
+      <div class="phase-icon" style="background:rgba(201,190,255,.12)">📊</div>
       <div class="phase-info">
         <h3>Fase 3: Profundización (Semanas 11-16)</h3>
         <span class="phase-date">Diciembre 2026 — Enero 2027</span>
@@ -755,7 +755,7 @@ h4{font-size:15px;font-weight:700;margin-bottom:8px;color:var(--accent)}
   <!-- FASE 4 -->
   <div class="phase">
     <div class="phase-header">
-      <div class="phase-icon" style="background:rgba(139,92,246,.15)">🎯</div>
+      <div class="phase-icon" style="background:rgba(237,184,204,.12)">🎯</div>
       <div class="phase-info">
         <h3>Fase 4: Práctica Intensiva (Semanas 17-22)</h3>
         <span class="phase-date">Febrero — Marzo 2027</span>
@@ -873,7 +873,7 @@ h4{font-size:15px;font-weight:700;margin-bottom:8px;color:var(--accent)}
   <!-- FASE 5 -->
   <div class="phase">
     <div class="phase-header">
-      <div class="phase-icon" style="background:rgba(239,68,68,.15)">🏆</div>
+      <div class="phase-icon" style="background:rgba(255,180,171,.12)">🏆</div>
       <div class="phase-info">
         <h3>Fase 5: Examen (Semanas 23-24)</h3>
         <span class="phase-date">Marzo 2027</span>

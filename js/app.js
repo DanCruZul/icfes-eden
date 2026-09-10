@@ -61,11 +61,11 @@ async function loadBanco() {
 }
 
 const AREAS = {
-  matematicas: { nombre: 'Matemáticas', peso: 3, icon: '📐', color: '#3b82f6' },
-  lectura: { nombre: 'Lectura Crítica', peso: 3, icon: '📖', color: '#8b5cf6' },
-  sociales: { nombre: 'Sociales y Ciudadanas', peso: 3, icon: '🏛️', color: '#f59e0b' },
-  ciencias: { nombre: 'Ciencias Naturales', peso: 3, icon: '🔬', color: '#10b981' },
-  ingles: { nombre: 'Inglés', peso: 1, icon: '🌍', color: '#ef4444' }
+  matematicas: { nombre: 'Matemáticas', peso: 3, icon: '📐', color: '#c9beff' },
+  lectura: { nombre: 'Lectura Crítica', peso: 3, icon: '📖', color: '#edb8cc' },
+  sociales: { nombre: 'Sociales y Ciudadanas', peso: 3, icon: '🏛️', color: '#c9c3dc' },
+  ciencias: { nombre: 'Ciencias Naturales', peso: 3, icon: '🔬', color: '#e6deff' },
+  ingles: { nombre: 'Inglés', peso: 1, icon: '🌍', color: '#ffb4ab' }
 };
 
 // ===== STATE =====
