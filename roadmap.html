@@ -102,13 +102,43 @@ h4{font-size:15px;font-weight:700;margin-bottom:8px;color:var(--accent)}
   </div>
 
   <h2>🗺️ Roadmap Completo: De 0 a 100</h2>
-  <p class="subtitle">Plan de estudio de 6 meses (septiembre 2026 — marzo 2027) que cubre CADA tema evaluado en el ICFES Saber 11°. Si sigues este plan paso a paso, tienes 0% de probabilidades de perder por falta de preparación. Cada tema está ordenado de más básico a más avanzado.</p>
+  <p class="subtitle">Plan de estudio de 6 meses (septiembre 2026 — marzo 2027) que cubre los temas evaluados en el ICFES Saber 11°. El examen usa modelo IRT (preguntas difíciles valen más), por lo que no hay garantía de puntaje perfecto, pero seguir este plan minimiza el riesgo de quedar sin preparación. Cada tema está ordenado de más básico a más avanzado.</p>
 
   <div class="stats-bar">
     <div class="stat"><div class="value">24</div><div class="label">Semanas</div></div>
-    <div class="stat"><div class="value">629</div><div class="label">Preguntas</div></div>
-    <div class="stat"><div class="value">158</div><div class="label">Temas</div></div>
+    <div class="stat"><div class="value">302</div><div class="label">Preguntas (120 + cuestionarios)</div></div>
+    <div class="stat"><div class="value">120</div><div class="label">Preguntas calificadas</div></div>
     <div class="stat"><div class="value">5</div><div class="label">Áreas</div></div>
+  </div>
+
+  <!-- BANNER IRT + PONDERACIÓN -->
+  <div style="background:var(--info-bg);border:1px solid var(--info);border-radius:var(--radius);padding:20px 24px;margin-bottom:32px">
+    <h3 style="color:var(--info);margin-bottom:12px">📐 ¿Cómo se califica el ICFES? (Es IRT, no porcentaje)</h3>
+    <p style="font-size:13px;color:var(--text);margin-bottom:12px">El examen usa <strong>Teoría de Respuesta al Ítem (IRT)</strong>: las preguntas difíciles valen más que las fáciles. Tu puntaje NO es "respuestas correctas / total". La fórmula del puntaje global es:</p>
+    <code style="display:block;background:var(--bg);padding:12px 16px;border-radius:var(--radius-sm);font-size:13px;color:var(--accent);margin-bottom:12px">Global = (3×Lectura + 3×Matemáticas + 3×Sociales + 3×Ciencias + 1×Inglés) ÷ 13 × 5</code>
+    <p style="font-size:12px;color:var(--text-muted);margin-bottom:12px"><strong>Estrategia clave:</strong> mejorar 10 puntos en Matemáticas, Lectura, Sociales o Ciencias sube el global ~12 puntos. En Inglés solo ~4 puntos. Las 4 áreas de peso 3 dominan tu puntaje.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;font-size:12px">
+      <div style="background:var(--bg);padding:8px;border-radius:var(--radius-sm);text-align:center"><strong>250</strong><br><span style="color:var(--text-dim)">~50%</span></div>
+      <div style="background:var(--bg);padding:8px;border-radius:var(--radius-sm);text-align:center"><strong>300</strong><br><span style="color:var(--text-dim)">~75%</span></div>
+      <div style="background:var(--bg);padding:8px;border-radius:var(--radius-sm);text-align:center"><strong>350</strong><br><span style="color:var(--text-dim)">~90%</span></div>
+      <div style="background:var(--bg);padding:8px;border-radius:var(--radius-sm);text-align:center"><strong>400</strong><br><span style="color:var(--text-dim)">~95%</span></div>
+      <div style="background:var(--bg);padding:8px;border-radius:var(--radius-sm);text-align:center"><strong>450</strong><br><span style="color:var(--text-dim)">~98%</span></div>
+    </div>
+    <p style="font-size:11px;color:var(--text-dim);margin-top:12px">*Percentiles de referencia aproximados basados en datos históricos ICFES.</p>
+  </div>
+
+
+  <!-- EDUCACIÓN EMOCIONAL 2026 -->
+  <div style="background:var(--warning-bg);border:1px solid var(--warning);border-radius:var(--radius);padding:20px 24px;margin-bottom:32px">
+    <h3 style="color:var(--warning);margin-bottom:8px">🧠 Educación Emocional (componente ICFES 2026 — EN VERIFICACIÓN)</h3>
+    <p style="font-size:13px;color:var(--text);margin-bottom:8px">Desde 2026 el ICFES incluye un componente de <strong>educación emocional</strong> que evalúa:</p>
+    <ul style="font-size:12px;color:var(--text);margin-left:16px;margin-bottom:8px;list-style:disc">
+      <li><strong>Conciencia emocional:</strong> identificar y nombrar emociones propias y ajenas</li>
+      <li><strong>Autorregulación:</strong> gestionar impulsos, estrés y reacciones</li>
+      <li><strong>Empatía:</strong> comprender perspectivas y sentimientos de otros</li>
+      <li><strong>Habilidades sociales:</strong> comunicación asertiva, resolución de conflictos, trabajo en equipo</li>
+    </ul>
+    <p style="font-size:11px;color:var(--text-dim)">*Verificar actualizaciones en <a href="https://www.icfes.gov.co" style="color:var(--accent)" target="_blank">icfes.gov.co</a>. Los detalles específicos aún no están completamente definidos en guías oficiales. Se recomienda verificar periódicamente si el ICFES publica nuevos lineamientos sobre este componente.</p>
   </div>
 
   <!-- FASE 1 -->
@@ -431,14 +461,26 @@ h4{font-size:15px;font-weight:700;margin-bottom:8px;color:var(--accent)}
         </div>
         <div class="topic sociales">
           <span class="level-badge level-2">Intermedio</span>
-          <div class="topic-header"><span class="topic-area sociales">Sociales</span></div>
-          <div class="topic-title">Competencias ciudadanas: participación</div>
-          <div class="topic-desc">Mecanismos de participación (voto, referendo, plebiscito, tutela, derecho de petición).</div>
+          <div class="topic-header"><span class="topic-area sociales">Sociales (60% competencias ciudadanas)</span></div>
+          <div class="topic-title">Mecanismos de participación ciudadana</div>
+          <div class="topic-desc">Voto, referendo, plebiscito, consulta popular, cabildo abierto, iniciativa legislativa, revocatoria del mandato. Acciones de tutela, cumplimiento, popular y grupo.</div>
           <ul class="skills-list">
             <li>Diferencia: referendo vs plebiscito vs consulta popular</li>
-            <li>Requisitos para tutela</li>
-            <li>Acción de cumplimiento vs acción popular</li>
-            <li>Casos de aplicación real</li>
+            <li>Requisitos para tutela (inmediateidad, no existencia de otro recurso)</li>
+            <li>Acción de cumplimiento vs acción popular vs acción de grupo</li>
+            <li>Casos de aplicación real y análisis de problemáticas sociales</li>
+          </ul>
+        </div>
+        <div class="topic sociales">
+          <span class="level-badge level-2">Intermedio</span>
+          <div class="topic-header"><span class="topic-area sociales">Sociales</span></div>
+          <div class="topic-title">Pensamiento reflexivo y sistémico</div>
+          <div class="topic-desc">Analizar problemáticas sociales desde múltiples dimensiones (política, económica, cultural, ambiental). Reconocer prejuicios, intereses y perspectivas en conflicto.</div>
+          <ul class="skills-list">
+            <li>Identificar causas y consecuencias de problemas sociales</li>
+            <li>Reconocer sesgos y prejuicios en argumentos</li>
+            <li>Relaciones de poder en contextos históricos y actuales</li>
+            <li>Análisis de fuentes con perspectivas contrapuestas</li>
           </ul>
         </div>
       </div>
@@ -480,13 +522,26 @@ h4{font-size:15px;font-weight:700;margin-bottom:8px;color:var(--accent)}
         <div class="topic ciencias">
           <span class="level-badge level-2">Intermedio</span>
           <div class="topic-header"><span class="topic-area ciencias">Ciencias</span></div>
+          <div class="topic-title">Competencia de Indagación</div>
+          <div class="topic-desc">Evalúa diseño experimental, formulación de hipótesis, identificación de variables (dependiente, independiente, controladas), análisis de datos y evaluación de conclusiones.</div>
+          <ul class="skills-list">
+            <li>Diseñar experimentos controlados</li>
+            <li>Identificar variables en un estudio</li>
+            <li>Evaluar si los datos apoyan una hipótesis</li>
+            <li>Analizar gráficas y tablas científicas</li>
+          </ul>
+        </div>
+        <div class="topic ciencias">
+          <span class="level-badge level-2">Intermedio</span>
+          <div class="topic-header"><span class="topic-area ciencias">Ciencias</span></div>
           <div class="topic-title">Reacciones químicas y estequiometría</div>
-          <div class="topic-desc">Tipos de reacción (síntesis, descomposición, desplazamiento). Balanceo de ecuaciones. Moles y masa molar.</div>
+          <div class="topic-desc">Tipos de reacción (síntesis, descomposición, desplazamiento). Balanceo de ecuaciones. Moles y masa molar. Tabla periódica: grupos, períodos y propiedades.</div>
           <ul class="skills-list">
             <li>Identificar tipo de reacción</li>
             <li>Balancear: ajustar coeficientes</li>
             <li>Masa molar: suma de masas atómicas</li>
-            <li>Relación mol-mol en reacciones</li>
+            <li>Tabla periódica: metales, no metales, gases nobles</li>
+            <li>Propiedades periódicas: electronegatividad, radio atómico</li>
           </ul>
         </div>
       </div>
@@ -647,6 +702,18 @@ h4{font-size:15px;font-weight:700;margin-bottom:8px;color:var(--accent)}
         <div class="topic ciencias">
           <span class="level-badge level-2">Intermedio</span>
           <div class="topic-header"><span class="topic-area ciencias">Ciencias</span></div>
+          <div class="topic-title">Termodinámica y separación de mezclas</div>
+          <div class="topic-desc">Calor, temperatura, dilatación térmica. Ácidos y bases (pH). Separación de mezclas: destilación, filtración, cromatografía, evaporación.</div>
+          <ul class="skills-list">
+            <li>Calor específico Q = m·c·ΔT</li>
+            <li>Escalas de temperatura: Celsius, Fahrenheit, Kelvin</li>
+            <li>pH: ácido (&lt;7), neutro (=7), básico (&gt;7)</li>
+            <li>Métodos de separación según estado de la materia</li>
+          </ul>
+        </div>
+        <div class="topic ciencias">
+          <span class="level-badge level-2">Intermedio</span>
+          <div class="topic-header"><span class="topic-area ciencias">Ciencias</span></div>
           <div class="topic-title">Ondas, electricidad y óptica</div>
           <div class="topic-desc">Propiedades de ondas. Circuitos eléctricos (Ley de Ohm). Reflexión y refracción de la luz.</div>
           <ul class="skills-list">
@@ -654,6 +721,19 @@ h4{font-size:15px;font-weight:700;margin-bottom:8px;color:var(--accent)}
             <li>V = IR (voltaje, corriente, resistencia)</li>
             <li>Circuitos en serie vs paralelo</li>
             <li>Espejos y lentes</li>
+          </ul>
+        </div>
+        <div class="topic ciencias">
+          <span class="level-badge level-2">Intermedio</span>
+          <div class="topic-header"><span class="topic-area ciencias">Ciencias</span></div>
+          <div class="topic-title">Evolución, ADN y biodiversidad</div>
+          <div class="topic-desc">Selección natural, adaptación, especiación. Estructura del ADN, ARN y síntesis de proteínas. Clasificación de seres vivos y biodiversidad.</div>
+          <ul class="skills-list">
+            <li>Selección natural: variación, herencia, tiempo</li>
+            <li>ADN → ARN → proteína (dogma central)</li>
+            <li>Mutaciones y su efecto en la evolución</li>
+            <li>Taxonomía: dominios, reinos, filos</li>
+            <li>Biodiversidad y conservación en Colombia</li>
           </ul>
         </div>
         <div class="topic ciencias">
@@ -694,23 +774,25 @@ h4{font-size:15px;font-weight:700;margin-bottom:8px;color:var(--accent)}
         <div class="topic math">
           <span class="level-badge level-3">Avanzado</span>
           <div class="topic-header"><span class="topic-area math">Todos</span></div>
-          <div class="topic-title">Simulacro #1 (Sesión 1)</div>
-          <div class="topic-desc">143 preguntas en 4h 30min. Matemáticas (25), Lectura (41), Sociales (25), Ciencias (29).</div>
+          <div class="topic-title">Simulacro #1 (Sesión 1 — 143 preguntas)</div>
+          <div class="topic-desc">120 preguntas calificables (Matemáticas 25, Lectura 41, Sociales 25, Ciencias 29) + 23 cuestionarios no calificados (socioeconómico 11, clima escolar 12). Duración: 4h 30min.</div>
           <ul class="skills-list">
             <li>Condiciones reales: sin pausas largas</li>
-            <li>Manejo del tiempo</li>
-            <li>Identificar patrones de error</li>
+            <li>Manejo del tiempo (3.75 min/pregunta calificable)</li>
+            <li>Los cuestionarios NO suman puntaje pero consumen tiempo</li>
+            <li>Identificar patrones de error post-simulacro</li>
           </ul>
         </div>
         <div class="topic lectura">
           <span class="level-badge level-3">Avanzado</span>
           <div class="topic-header"><span class="topic-area lectura">Todos</span></div>
-          <div class="topic-title">Simulacro #1 (Sesión 2)</div>
-          <div class="topic-desc">159 preguntas en 4h 30min. Matemáticas (25), Sociales (25), Ciencias (29), Inglés (55).</div>
+          <div class="topic-title">Simulacro #1 (Sesión 2 — 159 preguntas)</div>
+          <div class="topic-desc">134 preguntas calificables (Matemáticas 25, Sociales 25, Ciencias 29, Inglés 55) + 25 cuestionarios no calificados (socioeconómico 13, clima escolar 12). Duración: 4h 30min.</div>
           <ul class="skills-list">
             <li>Resistencia mental prolongada</li>
-            <li>Inglés: administrar tiempo</li>
-            <li>Análisis posterior: categorizar errores</li>
+            <li>Inglés: administrar tiempo (55 preguntas)</li>
+            <li>Los cuestionarios van al final, no restan puntaje</li>
+            <li>Análisis posterior: categorizar errores por competencia</li>
           </ul>
         </div>
       </div>
@@ -727,14 +809,16 @@ h4{font-size:15px;font-weight:700;margin-bottom:8px;color:var(--accent)}
       <div class="topics-grid">
         <div class="topic ingles">
           <span class="level-badge level-2">B1</span>
-          <div class="topic-header"><span class="topic-area ingles">Inglés</span></div>
-          <div class="topic-title">Partes 2-7: Léxico, conversaciones y lectura</div>
-          <div class="topic-desc">Construcción de oraciones, diálogos cortos, gramática (cloze test), vocabulario en contexto, comprensión lectora.</div>
+          <div class="topic-header"><span class="topic-area ingles">Inglés (55 preguntas — 7 partes)</span></div>
+          <div class="topic-title">Partes 2-7: Gramática, conversaciones y lectura</div>
+          <div class="topic-desc">La prueba de Inglés tiene 7 partes con pesos desiguales. Parte 4 (gramática, 18%) y Parte 7 (lectura, 22%) son las más extensas.</div>
           <ul class="skills-list">
-            <li>Parte 2: completar oraciones</li>
-            <li>Parte 3: conversaciones cotidianas</li>
-            <li>Parte 4: gramática (tiempos verbales, modales)</li>
-            <li>Partes 6-7: comprensión lectora</li>
+            <li>Parte 2 (12%): completar oraciones — comparativos, superlativos, artículos</li>
+            <li>Parte 3 (10%): conversaciones cotidianas — inferir respuestas apropiadas</li>
+            <li>Parte 4 (18%): gramática cloze test — tiempos verbales, voz pasiva, modales, condicionales (zero, first, second, third)</li>
+            <li>Parte 5 (12%): vocabulario en contexto — salud, alimentos, ropa, tecnología, viajes, educación</li>
+            <li>Parte 6 (14%): reading corto — información específica</li>
+            <li>Parte 7 (22%): reading largo — idea principal, inferencias, vocabulario en contexto</li>
           </ul>
         </div>
         <div class="topic math">
