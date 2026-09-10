@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Roadmap ICFES Saber 11° — De 0 a 100 | Edén</title>
+<title>Roadmap ICFES Saber 11° — De 0 a 100</title>
 <link rel="icon" href="art/favicon.svg" type="image/svg+xml">
 <style>
 @font-face{font-display:swap;font-family:"Fraunces Variable";font-style:normal;font-weight:100 900;src:url(fonts/fraunces-latin.woff2) format("woff2-variations");}
@@ -17,13 +17,13 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);line-height:
 .header{display:flex;justify-content:space-between;align-items:center;padding:16px 0 24px;border-bottom:1px solid var(--border);margin-bottom:32px}
 .logo{display:flex;align-items:center;gap:14px;cursor:pointer}
 .logo:hover .logo-icon{transform:scale(1.05)}
-.logo-icon{width:48px;height:48px;background:var(--accent);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800;color:#fff;transition:var(--transition)}
+.logo-icon{width:48px;height:48px;background:var(--text);border-radius:2px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800;color:#000;transition:var(--transition)}
 .logo-text h1{font-size:20px;font-weight:700}
 .logo-text span{font-size:12px;color:var(--text-muted)}
 .home-btn{padding:10px 20px;border-radius:var(--radius-sm);background:var(--card);border:1px solid var(--border);color:var(--text);font-size:13px;font-weight:600;cursor:pointer;transition:var(--transition);text-decoration:none;display:inline-flex;align-items:center;gap:8px}
 .home-btn:hover{border-color:var(--accent);background:var(--card-hover)}
 
-h2{font-family:var(--serif);font-size:clamp(2rem,1.3rem + 3vw,3.6rem);font-weight:560;letter-spacing:-.01em;margin-bottom:8px;background:linear-gradient(135deg,var(--text),var(--text-muted));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+h2{font-family:var(--serif);font-size:clamp(2rem,1.3rem + 3vw,3.6rem);font-weight:560;letter-spacing:-.01em;margin-bottom:8px;color:var(--text)}
 h3{font-family:var(--serif);font-size:1.5rem;font-weight:560;margin-bottom:12px;display:flex;align-items:center;gap:8px}
 h4{font-size:15px;font-weight:700;margin-bottom:8px;color:var(--accent)}
 
@@ -35,8 +35,8 @@ h4{font-size:15px;font-weight:700;margin-bottom:8px;color:var(--accent)}
 .stat .label{font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.05em;margin-top:4px}
 
 .phase{margin-bottom:40px}
-.phase-header{display:flex;align-items:center;gap:12px;margin-bottom:20px;padding-bottom:12px;border-bottom:2px solid var(--accent)}
-.phase-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px}
+.phase-header{display:flex;align-items:center;gap:12px;margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid var(--border)}
+.phase-icon{width:40px;height:40px;border-radius:2px;font-weight:700;display:flex;align-items:center;justify-content:center;font-size:20px}
 .phase-info h3{font-size:18px;margin-bottom:2px}
 .phase-info .phase-date{font-family:var(--mono);font-size:12px;color:var(--text-muted);letter-spacing:.08em}
 
@@ -44,40 +44,29 @@ h4{font-size:15px;font-weight:700;margin-bottom:8px;color:var(--accent)}
 .week:hover{border-color:var(--accent)}
 .week-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
 .week-title{display:flex;align-items:center;gap:10px}
-.week-num{background:var(--accent);color:#fff;padding:6px 14px;border-radius:20px;font-size:12px;font-weight:700}
+.week-num{background:var(--accent);color:#000;padding:6px 14px;border-radius:2px;font-family:var(--mono);font-size:12px;font-weight:700}
 .week-title h4{font-size:16px;color:var(--text);margin:0}
-.week-days{font-family:var(--mono);font-size:11px;color:var(--text-dim);background:var(--bg);padding:6px 12px;border-radius:20px}
+.week-days{font-family:var(--mono);font-size:11px;color:var(--text-dim);background:var(--bg);padding:6px 12px;border-radius:2px;border:1px solid var(--border)}
 
 .topics-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
-.topic{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-sm);padding:16px;position:relative;overflow:hidden}
-.topic::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%}
-.topic.math::before{background:#c9beff}
-.topic.lectura::before{background:#edb8cc}
-.topic.sociales::before{background:#c9c3dc}
-.topic.ciencias::before{background:#e6deff}
-.topic.ingles::before{background:#ffb4ab}
+.topic{background:var(--bg);border:1px solid var(--border);border-left:2px solid var(--border);border-radius:var(--radius-sm);padding:16px}
 
 .topic-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
-.topic-area{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;padding:3px 8px;border-radius:12px}
-.topic-area.math{background:rgba(201,190,255,.12);color:#c9beff}
-.topic-area.lectura{background:rgba(237,184,204,.12);color:#edb8cc}
-.topic-area.sociales{background:rgba(201,195,220,.12);color:#c9c3dc}
-.topic-area.ciencias{background:rgba(230,222,255,.12);color:#e6deff}
-.topic-area.ingles{background:rgba(255,180,171,.12);color:#ffb4ab}
+.topic-area{font-family:var(--mono);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;padding:3px 8px;border-radius:2px;border:1px solid currentColor;background:transparent} .topic-area.math{color:#c9beff} .topic-area.lectura{color:#edb8cc} .topic-area.sociales{color:#c9c3dc} .topic-area.ciencias{color:#e6deff} .topic-area.ingles{color:#ffb4ab}
 
 .topic-title{font-size:14px;font-weight:600;margin-bottom:6px}
 .topic-desc{font-size:12px;color:var(--text-muted);line-height:1.5;margin-bottom:10px}
-.topic-skills{font-size:11px;color:var(--text-dim)}
+.topic-skills{font-size:11px;color:var(--text-muted)}
 .topic-skills li{margin-bottom:3px;list-style:none}
 .topic-skills li::before{content:'•';color:var(--accent);margin-right:6px}
 
-.level-badge{position:absolute;top:12px;right:12px;font-size:9px;font-weight:700;padding:3px 8px;border-radius:10px;text-transform:uppercase}
+.level-badge{position:absolute;top:12px;right:12px;font-family:var(--mono);font-size:9px;font-weight:700;padding:3px 8px;border-radius:2px;border:1px solid currentColor;text-transform:uppercase}
 .level-1{background:var(--success-bg);color:var(--success)}
 .level-2{background:var(--warning-bg);color:var(--warning)}
 .level-3{background:var(--danger-bg);color:var(--danger)}
 
 .skills-list{margin-top:8px;padding-top:8px;border-top:1px solid var(--border)}
-.skills-list li{margin-bottom:3px;list-style:none;font-size:11px;color:var(--text-dim)}
+.skills-list li{margin-bottom:3px;list-style:none;font-size:11px;color:var(--text-muted)}
 .skills-list li::before{content:'→';color:var(--accent);margin-right:6px;font-weight:700}
 
 .checkbox-group{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
@@ -97,10 +86,10 @@ h4{font-size:15px;font-weight:700;margin-bottom:8px;color:var(--accent)}
 <div class="container">
   <div class="header">
     <div class="logo" onclick="window.location.href='index.html'">
-      <div class="logo-icon">E</div>
+      <div class="logo-icon">力</div>
       <div class="logo-text">
         <h1>ICFES Saber 11°</h1>
-        <span>Roadmap de Estudio — Edén</span>
+        <span>Roadmap de Estudio</span>
       </div>
     </div>
     <a href="index.html" class="home-btn">← Volver al simulador</a>
