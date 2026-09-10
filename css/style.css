@@ -651,6 +651,15 @@ body::before {
   color: var(--text-muted);
 }
 
+.question-passage.group-ref {
+  padding: 10px 16px;
+  font-family: var(--mono);
+  font-size: 12px;
+  font-style: normal;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+}
+
 /* Options */
 .options {
   display: flex;

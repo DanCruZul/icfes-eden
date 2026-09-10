@@ -226,14 +226,26 @@ function sampleRotating(pool, n) {
 }
 
 function buildExamenCompleto() {
-  // Bloques por materia (orden de sesión oficial ICFES), mezclado dentro de cada bloque
+  // Bloques por materia (orden de sesión oficial ICFES), mezclado dentro de cada bloque.
+  // Grupos con estímulo compartido quedan adyacentes dentro de su bloque.
   const ORDEN = ['matematicas', 'lectura', 'sociales', 'ciencias', 'ingles'];
   let out = [];
   ORDEN.forEach(area => {
     const pool = BANCO.filter(q => q.area === area);
-    out = out.concat(sampleRotating(pool, Math.min(EXAMEN_BLUEPRINT[area] || 0, pool.length)));
+    out = out.concat(agruparEstimulos(sampleRotating(pool, Math.min(EXAMEN_BLUEPRINT[area] || 0, pool.length))));
   });
   return out;
+}
+
+// Ordena para que las preguntas del mismo estímulo queden adyacentes (sin mezclar bloques)
+function agruparEstimulos(qs) {
+  return [...qs].sort((a, b) => {
+    const ka = a.stimulus_id || ('~' + a.id);
+    const kb = b.stimulus_id || ('~' + b.id);
+    if (ka < kb) return -1;
+    if (ka > kb) return 1;
+    return (a.stimulus_orden || 0) - (b.stimulus_orden || 0);
+  });
 }
 
 // Limpia la numeración original del cuadernillo pegada al texto ("23. ...", ". Lea...")
@@ -244,7 +256,7 @@ function stripNumeroOrigen(t) {
 function buildExamenArea(area) {
   const pool = BANCO.filter(q => q.area === area);
   const n = Math.min(AREA_EXAM_SIZE[area] || pool.length, pool.length);
-  return sampleRotating(pool, n);
+  return agruparEstimulos(sampleRotating(pool, n));
 }
 
 // ===== MODES =====
@@ -370,7 +382,16 @@ function renderQuestion() {
   const isAnswered = state.answers[state.currentIndex] !== undefined;
   const selectedIdx = state.answers[state.currentIndex];
   
-  let passageHtml = q.pasaje ? `<div class="question-passage">${q.pasaje}</div>` : '';
+  // Estímulo compartido: se muestra una vez por grupo, luego referencia
+  const prevQ = state.questions[state.currentIndex - 1];
+  const mismoGrupo = prevQ && q.stimulus_id && prevQ.stimulus_id === q.stimulus_id;
+  let passageHtml = '';
+  if (q.pasaje && !mismoGrupo) {
+    passageHtml = `<div class="question-passage">${q.pasaje}</div>`;
+  } else if (q.pasaje && mismoGrupo) {
+    const totalGrupo = state.questions.filter(x => x.stimulus_id === q.stimulus_id).length;
+    passageHtml = `<div class="question-passage group-ref">↑ Mismo texto anterior · pregunta ${q.stimulus_orden || '?'} de ${totalGrupo} del grupo</div>`;
+  }
   
   let optionsHtml = '';
   opts.forEach((opt, i) => {
